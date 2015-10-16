@@ -18,12 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         //production
-//        Parse.setApplicationId("tMFIOyN2uK2Y3FJWuKTOnffjtc1oFpbCqGv2kyB9",
-//            clientKey: "mwYFYLr86zaHcrSevMNTOTXZvmmROE5HNIEs1qIa")
+        Parse.setApplicationId("tMFIOyN2uK2Y3FJWuKTOnffjtc1oFpbCqGv2kyB9",
+            clientKey: "mwYFYLr86zaHcrSevMNTOTXZvmmROE5HNIEs1qIa")
         
         //dev
-        Parse.setApplicationId("3aNkcCszvCTZw4mjISo0BkKCF0KaqKIHAjbBTuQm",
-            clientKey: "HuVgsckaZhL5cIxw7J7cfSuklGE3QBoLZldWX2XQ")
+//        Parse.setApplicationId("3aNkcCszvCTZw4mjISo0BkKCF0KaqKIHAjbBTuQm",
+//            clientKey: "HuVgsckaZhL5cIxw7J7cfSuklGE3QBoLZldWX2XQ")
         return true
     }
 
