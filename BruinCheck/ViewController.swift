@@ -14,7 +14,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     let session         : AVCaptureSession = AVCaptureSession()
     
     //
-    let url = NSURL(string: "https://www.googleapis.com/calendar/v3/calendars/email.gmail.com/events?maxResults=15&key=APIKey-here")
+    let url = NSURL(string: "https://www.googleapis.com/calendar/v3/calendars/email.gmail.com/events?maxResults=15&key=AIzaSyAO2NgCrNXpjJJgkPTSo1oWumsEKUgYDoY")
     //
     
     var previewLayer    : AVCaptureVideoPreviewLayer!
