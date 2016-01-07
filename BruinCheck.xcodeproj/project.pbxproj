@@ -163,6 +163,7 @@
 				C4E9FAE01BC9952300148DCE /* Frameworks */,
 				C4E9FAE11BC9952300148DCE /* Resources */,
 				64CFBA2BC494262E8F31B012 /* Copy Pods Resources */,
+				8AFB93B31F86D357E14BE5FB /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -308,6 +309,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BruinCheck/Pods-BruinCheck-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8AFB93B31F86D357E14BE5FB /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BruinCheck/Pods-BruinCheck-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
