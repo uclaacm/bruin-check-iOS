@@ -60,8 +60,15 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
         self.view.layer.addSublayer(previewLayer)
         
+        //Load the menu bar
+        loadMenuBar()
+        
         // Start the scanner. You'll have to end it yourself later.
         session.startRunning()
+        
+    }
+    
+    func loadMenuBar() {
         
     }
     
