@@ -16,7 +16,9 @@ class DashboardTabBarController: UITabBarController, UITabBarControllerDelegate 
     
     override func viewWillAppear(animated: Bool) {
         let item1 = ViewController()
-        let icon1 = UITabBarItem(title: "Title", image: UIImage(named: "someImage.png"), selectedImage: UIImage(named: "otherImage.png"))
+        let icon1 = UITabBarItem(title: "Events", image: UIImage(named: "ucla_acm.png"), selectedImage: UIImage(named: "")) //BUG: Image is huge af
+
+        
         item1.tabBarItem = icon1
         let controllers = [item1]  //array of the root view controllers displayed by the tab bar interface
         self.viewControllers = controllers

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1011B632B53F34600DAA25C7 /* libPods-BruinCheck.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 364549F975B2D84DF331E704 /* libPods-BruinCheck.a */; };
 		6B20E2AB1C44CE1E0046E727 /* DashboardTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B20E2AA1C44CE1E0046E727 /* DashboardTabBarController.swift */; };
+		6B4B822C1C4C9EE70022F97A /* ucla_acm.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B4B822B1C4C9EE70022F97A /* ucla_acm.png */; };
 		C4E9FAE71BC9952300148DCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E9FAE61BC9952300148DCE /* AppDelegate.swift */; };
 		C4E9FAE91BC9952300148DCE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E9FAE81BC9952300148DCE /* ViewController.swift */; };
 		C4E9FAEC1BC9952300148DCE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4E9FAEA1BC9952300148DCE /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		364549F975B2D84DF331E704 /* libPods-BruinCheck.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BruinCheck.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B20E2AA1C44CE1E0046E727 /* DashboardTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardTabBarController.swift; sourceTree = "<group>"; };
+		6B4B822B1C4C9EE70022F97A /* ucla_acm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ucla_acm.png; sourceTree = "<group>"; };
 		8DFD4C90ED40D5A2FF0FBCE5 /* Pods-BruinCheck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BruinCheck.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BruinCheck/Pods-BruinCheck.debug.xcconfig"; sourceTree = "<group>"; };
 		C2B5C268DFE0C0F80DF81381 /* Pods-BruinCheck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BruinCheck.release.xcconfig"; path = "Pods/Target Support Files/Pods-BruinCheck/Pods-BruinCheck.release.xcconfig"; sourceTree = "<group>"; };
 		C4E4FD761BC9A41100439F03 /* BruinCheck-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BruinCheck-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 		C4E9FAE51BC9952300148DCE /* BruinCheck */ = {
 			isa = PBXGroup;
 			children = (
+				6B4B822B1C4C9EE70022F97A /* ucla_acm.png */,
 				C4E9FAE61BC9952300148DCE /* AppDelegate.swift */,
 				6B20E2AA1C44CE1E0046E727 /* DashboardTabBarController.swift */,
 				C4E9FAE81BC9952300148DCE /* ViewController.swift */,
@@ -261,6 +264,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B4B822C1C4C9EE70022F97A /* ucla_acm.png in Resources */,
 				C4E9FAF11BC9952300148DCE /* LaunchScreen.storyboard in Resources */,
 				C4E9FAEE1BC9952300148DCE /* Assets.xcassets in Resources */,
 				C4E9FAEC1BC9952300148DCE /* Main.storyboard in Resources */,
