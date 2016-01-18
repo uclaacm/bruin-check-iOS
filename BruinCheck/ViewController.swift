@@ -6,6 +6,7 @@
 //  Copyright © 2015 liwei. All rights reserved.
 //
 
+//This code handles the bar code scanner
 import UIKit
 import AVFoundation
 

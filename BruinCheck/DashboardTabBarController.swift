@@ -6,6 +6,7 @@
 //  Copyright © 2016 Li-Wei Tseng. All rights reserved.
 //
 
+//This code creates the Tab Bar at the bottom
 import Foundation
 
 class DashboardTabBarController: UITabBarController, UITabBarControllerDelegate {
@@ -16,7 +17,7 @@ class DashboardTabBarController: UITabBarController, UITabBarControllerDelegate 
     
     override func viewWillAppear(animated: Bool) {
         let item1 = ViewController()
-        let icon1 = UITabBarItem(title: "Events", image: UIImage(named: "ucla_ac.png"), selectedImage: UIImage(named: "")) //BUG: Image is huge af
+        let icon1 = UITabBarItem(title: "Events", image: UIImage(named: ""), selectedImage: UIImage(named: "")) //BUG: "ucla_acm.png" is huge af
 
         
         item1.tabBarItem = icon1
@@ -28,5 +29,9 @@ class DashboardTabBarController: UITabBarController, UITabBarControllerDelegate 
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
         print("Should select viewController: \(viewController.title) ?")
         return true;
+    }
+    
+    func transitionToTableView() {
+        
     }
 }
