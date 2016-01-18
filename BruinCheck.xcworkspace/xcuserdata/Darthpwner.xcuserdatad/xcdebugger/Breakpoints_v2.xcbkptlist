@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BruinCheck/ViewController.swift"
-            timestampString = "474270536.240658"
+            timestampString = "474782143.956127"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "captureOutput(_:didOutputMetadataObjects:fromConnection:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BruinCheck/ViewController.swift"
-            timestampString = "474270536.240658"
+            timestampString = "474782143.956127"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "captureOutput(_:didOutputMetadataObjects:fromConnection:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,12 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BruinCheck/ViewController.swift"
-            timestampString = "474265687.495559"
+            timestampString = "474782143.956127"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "captureOutput(_:didOutputMetadataObjects:fromConnection:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -58,12 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BruinCheck/ViewController.swift"
-            timestampString = "474265688.668015"
+            timestampString = "474782143.956127"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "captureOutput(_:didOutputMetadataObjects:fromConnection:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BruinCheck/ViewController.swift"
-            timestampString = "474265691.270202"
+            timestampString = "474782143.956127"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
