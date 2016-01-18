@@ -43,8 +43,6 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 //            print(error)
         }
     
-
-        
         let output = AVCaptureMetadataOutput()
         output.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
         session.addOutput(output)
