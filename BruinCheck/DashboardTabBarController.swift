@@ -28,10 +28,12 @@ class DashboardTabBarController: UITabBarController, UITabBarControllerDelegate 
     //Delegate methods
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
         print("Should select viewController: \(viewController.title) ?")
+        transitionToTableView()
         return true;
     }
     
     func transitionToTableView() {
-        
+        let tableViewController: UITableViewController = UITableViewController()
+        self.presentViewController(tableViewController, animated: true, completion: nil)
     }
 }

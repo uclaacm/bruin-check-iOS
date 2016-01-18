@@ -13,6 +13,7 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        print("ENTERED TABLEVIEW")
         // Do any additional setup after loading the view.
     }
 
