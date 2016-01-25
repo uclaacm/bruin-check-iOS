@@ -115,5 +115,81 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BruinCheck/TableViewController.swift"
+            timestampString = "475386704.800899"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "9"
+            endingLineNumber = "9">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BruinCheck.TableViewController.__deallocating_deinit"
+                  moduleName = "BruinCheck"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Darthpwner/Desktop/bruin-check-iOS/BruinCheck/TableViewController.swift"
+                  timestampString = "475386704.842075"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BruinCheck.TableViewController.init (BruinCheck.TableViewController.Type)(style : __C.UITableViewStyle) -&gt; BruinCheck.TableViewController"
+                  moduleName = "BruinCheck"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Darthpwner/Desktop/bruin-check-iOS/BruinCheck/TableViewController.swift"
+                  timestampString = "475386704.842411"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BruinCheck.TableViewController.init (BruinCheck.TableViewController.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.NSBundle&gt;) -&gt; BruinCheck.TableViewController"
+                  moduleName = "BruinCheck"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Darthpwner/Desktop/bruin-check-iOS/BruinCheck/TableViewController.swift"
+                  timestampString = "475386704.842611"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "68">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BruinCheck.TableViewController.init (BruinCheck.TableViewController.Type)(coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;BruinCheck.TableViewController&gt;"
+                  moduleName = "BruinCheck"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Darthpwner/Desktop/bruin-check-iOS/BruinCheck/TableViewController.swift"
+                  timestampString = "475386704.842808"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

@@ -7,16 +7,36 @@
 //
 
 import UIKit
+//import Parse
 
 class TableViewController: UITableViewController {
 
     @IBOutlet weak var tableViewCells: UITableViewCell!
     
+    var tableViewCellNames = [String]()
+    var tableViewCellDates = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         print("ENTERED TABLEVIEW")
-        // Do any additional setup after loading the view.
+        
+        //Use a different value for className
+        let query = PFQuery(className: "Posts")
+        query.orderByDescending("createdAt")    //Chronological order
+        query.findObjectsInBackgroundWithBlock {
+            (posts: [AnyObject]?, error: NSError?) -> Void in
+            if error == nil {
+                //Success fetching objects
+                print(posts!.count)
+                for post in posts! {
+                    self.tableViewCellNames.append(post["names"]) as! String
+                    self.tableViewCellDates.append(post["dates"]) as! String
+                }
+            } else {
+                print(error)
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
