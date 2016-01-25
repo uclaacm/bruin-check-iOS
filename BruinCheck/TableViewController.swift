@@ -25,13 +25,12 @@ class TableViewController: UITableViewController {
         let query = PFQuery(className: "Posts")
         query.orderByDescending("createdAt")    //Chronological order
         query.findObjectsInBackgroundWithBlock {
-            (posts: [AnyObject]?, error: NSError?) -> Void in
+            (posts:[PFObject]?, error:NSError?) -> Void in
             if error == nil {
                 //Success fetching objects
-                print(posts!.count)
                 for post in posts! {
-                    self.tableViewCellNames.append(post["event_name"]) as! Double
-                    self.tableViewCellDates.append(post["beginning_of_event_time"]) as! String
+                    print(post)
+                    print("\n")
                 }
             } else {
                 print(error)
