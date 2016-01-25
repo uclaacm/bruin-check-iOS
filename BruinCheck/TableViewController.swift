@@ -11,9 +11,10 @@ import UIKit
 
 class TableViewController: UITableViewController {
 
-    @IBOutlet weak var tableViewCells: UITableViewCell!
+//    @IBOutlet weak var tableViewCells: UITableViewCell!
+    @IBOutlet var tableViewVar: UITableView!
     
-    var tableViewCellNames = [String]()
+    var tableViewCellNames = [String]() //Required
     var tableViewCellDates = [String]()
     
     override func viewDidLoad() {
@@ -33,15 +34,34 @@ class TableViewController: UITableViewController {
                     print(post)
                     print("\n")
                     
-//                    self.tableViewCellNames.append(post["event_name"] as! String)
-//                    self.tableViewCellDates.append(post["beginning_of_event_time"] as! String)
+                    self.tableViewCellNames.append(post["event_name"] as! String)
+        //            self.tableViewCellDates.append(post["beginning_of_event_time"] as! String)    //Values need to be assigned
                 }
+                
+                /*Reload the table*/
+                self.tableViewVar.reloadData()
+                
+                print(self.tableViewCellNames.count)
             } else {
                 print(error)
             }
         }
     }
+    
+    /*Table view begin*/
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableViewCellNames.count;
+    }
 
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let singleCell: SingleRowCell = tableView.dequeueReusableCellWithIdentifier("mySingleCell") as! SingleRowCell
+        
+//        singleCell.textLabel = tableViewCellNames[indexPath.row]
+//        singleCell.textLabel = tableViewCellDates[indexPath.row]
+//        
+        return singleCell
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

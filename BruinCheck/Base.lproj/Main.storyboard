@@ -33,7 +33,7 @@
                         <sections>
                             <tableViewSection id="sjZ-Nc-7JG">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="FLY-2a-tmC">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mySingleCell" id="FLY-2a-tmC" customClass="SingleRowCell" customModule="BruinCheck" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="35" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FLY-2a-tmC" id="T9M-TY-84W">
@@ -41,7 +41,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Md9-e0-qaz">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Md9-e0-qaz" customClass="SingleRowCell" customModule="BruinCheck" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="79" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Md9-e0-qaz" id="KYM-Og-TRH">
@@ -49,7 +49,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="226-6v-l89">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="226-6v-l89" customClass="SingleRowCell" customModule="BruinCheck" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="123" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="226-6v-l89" id="e6Q-zh-QxH">
@@ -61,11 +61,12 @@
                             </tableViewSection>
                         </sections>
                         <connections>
-                            <outlet property="dataSource" destination="1jp-3k-BTD" id="QxJ-JT-ckx"/>
-                            <outlet property="delegate" destination="1jp-3k-BTD" id="HP6-XS-MGV"/>
+                            <outlet property="dataSource" destination="1jp-3k-BTD" id="QvI-2t-m9p"/>
+                            <outlet property="delegate" destination="1jp-3k-BTD" id="Czi-Lr-q8X"/>
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="tableView" destination="mSh-hs-mTR" id="c2k-Uz-4La"/>
                         <outlet property="tableViewCells" destination="FLY-2a-tmC" id="60x-Rk-oPR"/>
                     </connections>
                 </tableViewController>
