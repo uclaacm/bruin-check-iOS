@@ -14,7 +14,7 @@ class TableViewController: UITableViewController {
     @IBOutlet weak var tableViewCells: UITableViewCell!
     
     var tableViewCellNames = [String]()
-    var tableViewCellDates = [String]()
+    var tableViewCellDates = [Double]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +30,8 @@ class TableViewController: UITableViewController {
                 //Success fetching objects
                 print(posts!.count)
                 for post in posts! {
-                    self.tableViewCellNames.append(post["names"]) as! String
-                    self.tableViewCellDates.append(post["dates"]) as! String
+                    self.tableViewCellNames.append(post["event_name"]) as! Double
+                    self.tableViewCellDates.append(post["beginning_of_event_time"]) as! String
                 }
             } else {
                 print(error)
