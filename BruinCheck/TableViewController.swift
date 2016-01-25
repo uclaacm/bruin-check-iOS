@@ -22,14 +22,15 @@ class TableViewController: UITableViewController {
         print("ENTERED TABLEVIEW")
         
         //Use a different value for className
-        let query = PFQuery(className: "Posts")
+        let query = PFQuery(className: "event_info")
         query.orderByDescending("createdAt")    //Chronological order
         query.findObjectsInBackgroundWithBlock {
             (posts:[PFObject]?, error:NSError?) -> Void in
             if error == nil {
                 //Success fetching objects
                 for post in posts! {
-                    print(post)
+                    print("Parse data: ")
+                    print(posts!.count)
                     print("\n")
                 }
             } else {
