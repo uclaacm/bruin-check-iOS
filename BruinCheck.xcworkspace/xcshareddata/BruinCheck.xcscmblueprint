@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F34BB2A2B918375A744EDD37EFF862907735DC8B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "53478FE402AF6DA013F25AED2F170D40AE2F42F7" : 0,
+    "F34BB2A2B918375A744EDD37EFF862907735DC8B" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "2FB46E61-50B9-405C-A2A5-A96B2BFB6665",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "53478FE402AF6DA013F25AED2F170D40AE2F42F7" : "Keepy%20Uppy\/",
+    "F34BB2A2B918375A744EDD37EFF862907735DC8B" : "bruin-check-iOS\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "BruinCheck",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "BruinCheck.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Darthpwner\/Keepy-Uppy-2.0.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "53478FE402AF6DA013F25AED2F170D40AE2F42F7"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/uclaacm\/bruin-check-iOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F34BB2A2B918375A744EDD37EFF862907735DC8B"
+    }
+  ]
+}

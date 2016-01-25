@@ -10,6 +10,8 @@ import UIKit
 
 class TableViewController: UITableViewController {
 
+    @IBOutlet weak var tableViewCells: UITableViewCell!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
