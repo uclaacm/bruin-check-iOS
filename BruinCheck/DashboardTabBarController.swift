@@ -33,7 +33,7 @@ class DashboardTabBarController: UITabBarController, UITabBarControllerDelegate 
     }
     
     func transitionToTableView() {
-        let tableViewController: UITableViewController = UITableViewController()
+        let tableViewController = TableViewController()
         self.presentViewController(tableViewController, animated: true, completion: nil)
     }
 }

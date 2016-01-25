@@ -22,6 +22,8 @@ class TableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    //Link everything through Parse, so name of event, date, 
 
     /*
     // MARK: - Navigation
