@@ -73,7 +73,7 @@ class DirectoryViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionHeaders.object(at: section) as! String
+        return sectionHeaders.object(at: section) as? String
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
