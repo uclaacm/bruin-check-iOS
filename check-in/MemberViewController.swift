@@ -157,17 +157,6 @@ class MemberViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       /* if indexPath == checkInPath {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier: "ScannerViewController") as! ScannerViewController
-            viewController.event = event
-            let backItem = UIBarButtonItem()
-            backItem.title = "Done"
-            backItem.style = .done
-            navigationItem.backBarButtonItem = backItem
-            
-            self.navigationController?.pushViewController(viewController, animated: true)
-        }*/
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
