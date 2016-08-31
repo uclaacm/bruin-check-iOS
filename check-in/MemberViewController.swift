@@ -156,9 +156,6 @@ class MemberViewController: UITableViewController, UITextFieldDelegate {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    }
-    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
     }
