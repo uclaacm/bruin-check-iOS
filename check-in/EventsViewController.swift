@@ -121,6 +121,9 @@ class EventsViewController: UITableViewController {
             query, withCompletionBlock: { (events_list, error) -> Void in
                 if let events_list = events_list {
                     self.events = events_list as! [Event]
+                    self.events.sort(by: { (a, b) -> Bool in
+                        return a.startDate?.timeIntervalSinceNow > b.startDate?.timeIntervalSinceNow
+                    })
                     self.tableView.reloadData()
                 }
                 self.refresh.endRefreshing()
