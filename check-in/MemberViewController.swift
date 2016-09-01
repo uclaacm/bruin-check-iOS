@@ -152,7 +152,6 @@ class MemberViewController: UITableViewController, UITextFieldDelegate {
             }
             
         }
-        
         return cell
     }
     
