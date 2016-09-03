@@ -26,11 +26,11 @@ class ScannerTableViewController: UITableViewController, UITextFieldDelegate {
     var emailField = UITextField()
     var idField = UITextField()
 
-    // Index paths to help find things
+    // Index paths to help find things!
     var idIndexPath : IndexPath?
     var buttonIndexPath : IndexPath?
     
-    // Member var that we will submit to the backend
+    // Member var that we will submit to the backend!ß
     var member = Member()
     
     // Event var that we will update w/ our new attendee
