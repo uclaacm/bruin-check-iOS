@@ -26,7 +26,7 @@ class ScannerTableViewController: UITableViewController, UITextFieldDelegate {
     var emailField = UITextField()
     var idField = UITextField()
 
-    // Index paths to help find things
+    // Index paths to help find things!
     var idIndexPath : IndexPath?
     var buttonIndexPath : IndexPath?
     
