@@ -48,7 +48,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate {
         emailField.returnKeyType = .done
         idField.returnKeyType = .done
         
-        // Set delegates for the text fields!
+        // Set delegates for the text fields
         nameField.delegate = self
         emailField.delegate = self
         passwordField.delegate = self
