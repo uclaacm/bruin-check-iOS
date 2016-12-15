@@ -96,7 +96,8 @@ class EventsViewController: UITableViewController {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
@@ -115,14 +116,14 @@ class EventsViewController: UITableViewController {
         let collection = KCSCollection.init(from: "Events", of: Event.self)
         let store = KCSAppdataStore(collection: collection, options: nil)
         
-        let query = KCSQuery(onField: "groupIdentifier", withExactMatchForValue: KCSUser.active().getValueForAttribute("groupIdentifier") as! String)
+        let query = KCSQuery(onField: "groupIdentifier", withExactMatchForValue: KCSUser.active().getValueForAttribute("groupIdentifier") as! String as NSObject!)
         
         _ = store?.query(withQuery:
             query, withCompletionBlock: { (events_list, error) -> Void in
                 if let events_list = events_list {
                     self.events = events_list as! [Event]
                     self.events.sort(by: { (a, b) -> Bool in
-                        return a.startDate?.timeIntervalSinceNow > b.startDate?.timeIntervalSinceNow
+                        return (a.startDate as NSDate!).timeIntervalSinceNow > (b.startDate as NSDate!).timeIntervalSinceNow
                     })
                     self.tableView.reloadData()
                 }

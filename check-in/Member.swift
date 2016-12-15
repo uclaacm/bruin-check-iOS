@@ -48,7 +48,7 @@ class Member : NSObject {
         super.init()
     }
     
-    func save(completion: () -> Void) {
+    func save(completion: @escaping () -> Void) {
         let collection = KCSCollection.init(from: "Members", of: Member.self)
         let store = KCSAppdataStore(collection: collection, options: nil)
         
@@ -57,7 +57,7 @@ class Member : NSObject {
             withCompletionBlock: { (KCSCompletionBlock) -> Void in
                 if KCSCompletionBlock.1 != nil {
                     //save failed
-                    NSLog("Save failed, with error: %@", KCSCompletionBlock.1!)
+                    //NSLog("Save failed, with error: %@", KCSCompletionBlock.1!)
                     
                 } else {
                     //save was successful
@@ -68,7 +68,7 @@ class Member : NSObject {
             withProgressBlock: nil)
     }
     
-    func loadFromID(id: String, groupID: String, completion: (success: Bool) -> Void) {
+    func loadFromID(id: String, groupID: String, completion: @escaping (_ success: Bool) -> Void) {
         
         let collection = KCSCollection.init(from: "Members", of: Member.self)
         let store = KCSAppdataStore(collection: collection, options: nil)
@@ -76,7 +76,7 @@ class Member : NSObject {
         var success = false
         
         
-        let query = KCSQuery(onField: "groupIdentifier", withExactMatchForValue: groupID)
+        let query = KCSQuery(onField: "groupIdentifier", withExactMatchForValue: groupID as NSObject!)
         
         _ = store?.query(withQuery:
             query, withCompletionBlock: { (member_list, error) -> Void in
@@ -98,7 +98,7 @@ class Member : NSObject {
                     self.id = id
                 }
                 
-                completion(success: success)
+                completion(success)
             },
                    withProgressBlock: nil
         )
@@ -120,7 +120,7 @@ class Member : NSObject {
         }
     }
     
-    override func hostToKinveyPropertyMapping() -> [NSObject : AnyObject]! {
+    override static func kinveyPropertyToCollectionMapping() -> [AnyHashable : Any]! {
         return [
             "entityId" : KCSEntityKeyId, //the required _id field
             "name" : "name",

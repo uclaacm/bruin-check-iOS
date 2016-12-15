@@ -100,7 +100,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     // Called when known barcode is detected
-    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, from connection: AVCaptureConnection!) {
+    private func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, from connection: AVCaptureConnection!) {
         
         // Begin animating the wheels to avoid UI lag
         wheelsAreAnimating(b: true)
@@ -207,7 +207,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         //* This cannot be called before viewDidLayoutSubviews(), because the frame is not set before this time
         
         // bail if the current state matches the desired state
-        if ( (self.tabBarController?.tabBar.frame.origin.y < self.view.frame.maxY) == visible) { return }
+        if ( ((self.tabBarController?.tabBar.frame.origin.y)! < self.view.frame.maxY) == visible) { return }
         
         // get a frame calculation ready
         let frame = self.tabBarController?.tabBar.frame

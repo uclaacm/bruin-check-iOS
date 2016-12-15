@@ -188,7 +188,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIViewControll
             passwordField.becomeFirstResponder()
         } else if textField.returnKeyType == .go {
             textField.resignFirstResponder()
-            initiateLogin("")
+            initiateLogin("" as AnyObject)
         }
         
         

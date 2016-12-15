@@ -141,7 +141,7 @@ class SignupViewController: ElasticModalViewController, UITextFieldDelegate {
             withCompletionBlock: { (KCSUser, error, KCSUserActionResult) -> Void in
                 if error == nil {
                     // Success ... go back to login view
-                    self.sendToLogin("")
+                    self.sendToLogin("" as AnyObject)
                 } else {
                     //there was an error with the create
                     let e = error as! NSError

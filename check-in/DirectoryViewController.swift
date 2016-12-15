@@ -149,7 +149,7 @@ class DirectoryViewController: UITableViewController {
         
     }
     
-        override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             
             // Get the new view controller using segue.destinationViewController.
             // Pass the selected object to the new view controller
@@ -169,7 +169,7 @@ class DirectoryViewController: UITableViewController {
     func sortMembers() {
         
         members.sort { (a, b) -> Bool in
-            return a.name < b.name
+            return a.name! < b.name!
         }
         
         sectionHeaders = []
@@ -210,7 +210,7 @@ class DirectoryViewController: UITableViewController {
                 self.refresh.endRefreshing()
                 }, withProgressBlock: nil)
         } else {
-            let query = KCSQuery(onField: "groupIdentifier", withExactMatchForValue: KCSUser.active().getValueForAttribute("groupIdentifier") as! String)
+            let query = KCSQuery(onField: "groupIdentifier", withExactMatchForValue: KCSUser.active().getValueForAttribute("groupIdentifier") as! String as NSObject!)
             
             _ = store?.query(withQuery:
                 query, withCompletionBlock: { (members_list, error) -> Void in

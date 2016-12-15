@@ -45,7 +45,7 @@ public class MotionAnimator: NSObject {
       }
       b.didUpdate()
       b.delegate?.animationDidPerformStep(b)
-      b.onUpdate?(animation: b)
+      b.onUpdate?(b)
     }
 
     _removeAllPendingStopAnimations()
@@ -64,7 +64,7 @@ public class MotionAnimator: NSObject {
       if let index = animations.index(of: b){
         animations.remove(at: index)
         b.delegate?.animationDidStop(b)
-        b.onCompletion?(animation: b)
+        b.onCompletion?(b)
       }
     }
     pendingStopAnimations.removeAll()

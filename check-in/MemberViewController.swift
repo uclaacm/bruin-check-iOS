@@ -189,7 +189,7 @@ class MemberViewController: UITableViewController, UITextFieldDelegate {
         let padding = UIView(frame: CGRect(x: 0, y: 0, width: CGFloat(15), height: textField.frame.size.height))
         textField.leftView = padding
         textField.leftViewMode = .always
-        textField.font = UIFont.preferredFont(forTextStyle: UIFontTextStyleBody)
+        textField.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
         textField.placeholder = placeholder
         cell.addSubview(textField)
     }

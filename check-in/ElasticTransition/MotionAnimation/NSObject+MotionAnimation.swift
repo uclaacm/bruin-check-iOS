@@ -48,7 +48,7 @@ public extension NSObject{
   func m_setValues(_ values:[CGFloat], forCustomProperty key:String){
     getPropertyState(key).setValues(values)
   }
-  func m_defineCustomProperty<T:MotionAnimatableProperty>(_ key:String, initialValues:T, valueUpdateCallback:(T)->Void){
+  func m_defineCustomProperty<T:MotionAnimatableProperty>(_ key:String, initialValues:T, valueUpdateCallback:@escaping (T)->Void){
     if m_propertyStates[key] != nil{
       return
     }
@@ -57,7 +57,7 @@ public extension NSObject{
       valueUpdateCallback(T.fromCGFloatValues(values))
     })
   }
-  func m_defineCustomProperty(_ key:String, getter:CGFloatValueBlock, setter:CGFloatValueBlock){
+  func m_defineCustomProperty(_ key:String, getter:@escaping CGFloatValueBlock, setter: @escaping CGFloatValueBlock){
     if m_propertyStates[key] != nil{
       return
     }
@@ -68,12 +68,12 @@ public extension NSObject{
   }
   
   // add callbacks
-  func m_addValueUpdateCallback<T:MotionAnimatableProperty>(_ key:String, valueUpdateCallback:(T)->Void) -> MotionAnimationObserverKey{
+  func m_addValueUpdateCallback<T:MotionAnimatableProperty>(_ key:String, valueUpdateCallback:@escaping (T)->Void) -> MotionAnimationObserverKey{
     return getPropertyState(key).addValueUpdateCallback({ values in
       valueUpdateCallback(T.fromCGFloatValues(values))
     })
   }
-  func m_addVelocityUpdateCallback<T:MotionAnimatableProperty>(_ key:String, velocityUpdateCallback:(T)->Void) -> MotionAnimationObserverKey{
+  func m_addVelocityUpdateCallback<T:MotionAnimatableProperty>(_ key:String, velocityUpdateCallback:@escaping (T)->Void) -> MotionAnimationObserverKey{
     return getPropertyState(key).addVelocityUpdateCallback({ values in
       velocityUpdateCallback(T.fromCGFloatValues(values))
     })

@@ -56,7 +56,7 @@ class Event : NSObject {    //all NSObjects in Kinvey implicitly implement KCSPe
         let collection = KCSCollection.init(from: "Events", of: Event.self)
         let store = KCSAppdataStore(collection: collection, options: nil)
         
-        let query = KCSQuery(onField: "entityId", withExactMatchForValue: entityId)
+        let query = KCSQuery(onField: "entityId", withExactMatchForValue: entityId as NSObject!)
         
         _ = store?.query(withQuery:
             query, withCompletionBlock: { (event, error) -> Void in
@@ -79,7 +79,7 @@ class Event : NSObject {    //all NSObjects in Kinvey implicitly implement KCSPe
         )
     }
     
-    public func save(completion: () -> Void) {
+    public func save(completion: @escaping () -> Void) {
         let collection = KCSCollection.init(from: "Events", of: Event.self)
         let store = KCSAppdataStore(collection: collection, options: nil)
         
@@ -88,7 +88,7 @@ class Event : NSObject {    //all NSObjects in Kinvey implicitly implement KCSPe
             withCompletionBlock: { (KCSCompletionBlock) -> Void in
                 if KCSCompletionBlock.1 != nil {
                     //save failed
-                    NSLog("Save failed, with error: %@", KCSCompletionBlock.1!)
+                    //NSLog("Save failed, with error: %@", KCSCompletionBlock.1!)
                 } else {
                     //save was successful
                     completion()
@@ -115,7 +115,7 @@ class Event : NSObject {    //all NSObjects in Kinvey implicitly implement KCSPe
         }
     }
     
-    override func hostToKinveyPropertyMapping() -> [NSObject : AnyObject]! {
+    override static func kinveyPropertyToCollectionMapping() -> [AnyHashable : Any]! {
         return [
             "entityId" : KCSEntityKeyId, //the required _id field
             "name" : "name",
@@ -126,5 +126,6 @@ class Event : NSObject {    //all NSObjects in Kinvey implicitly implement KCSPe
             "groupIdentifier" : "groupIdentifier",
             "metadata" : KCSEntityKeyMetadata //optional _metadata field
         ]
+
     }
 }

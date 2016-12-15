@@ -159,7 +159,7 @@ class DashboardViewController: UIViewController, UITableViewDataSource, UITableV
                 let collection = KCSCollection.init(from: "Events", of: Event.self)
                 let store = KCSAppdataStore(collection: collection, options: nil)
                 
-                let query = KCSQuery(onField: "groupIdentifier", withExactMatchForValue: KCSUser.active().getValueForAttribute("groupIdentifier") as! String)
+                let query = KCSQuery(onField: "groupIdentifier", withExactMatchForValue: KCSUser.active().getValueForAttribute("groupIdentifier") as! NSObject)
                 
                 _ = store?.query(withQuery:
                     query, withCompletionBlock: { (events_list, error) -> Void in
@@ -185,7 +185,7 @@ class DashboardViewController: UIViewController, UITableViewDataSource, UITableV
                 let collection = KCSCollection.init(from: "Members", of: Member.self)
                 let store = KCSAppdataStore(collection: collection, options: nil)
                 
-                let query = KCSQuery(onField: "groupIdentifier", withExactMatchForValue: KCSUser.active().getValueForAttribute("groupIdentifier") as! String)
+                let query = KCSQuery(onField: "groupIdentifier", withExactMatchForValue: KCSUser.active().getValueForAttribute("groupIdentifier") as! String as NSObject!)
                 
                 _ = store?.query(withQuery:
                     query, withCompletionBlock: { (members_list, error) -> Void in
