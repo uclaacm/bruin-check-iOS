@@ -19,7 +19,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIViewControll
     let usernameWheel = UIActivityIndicatorView()
     let passwordWheel = UIActivityIndicatorView()
 
-    @IBOutlet weak var usernameField: UITextField!
+    @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var loginButton: UIButton!
@@ -34,19 +34,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIViewControll
         loadBackgroundGradient()
         
         // Create target to be called when the text fields are changed (to determine if the input is valid)
-        usernameField.addTarget(self, action: #selector(textFieldDidChange), for: UIControlEvents.editingChanged)
+        emailField.addTarget(self, action: #selector(textFieldDidChange), for: UIControlEvents.editingChanged)
         passwordField.addTarget(self, action: #selector(textFieldDidChange), for: UIControlEvents.editingChanged)
         
-        usernameField.delegate = self
+        emailField.delegate = self
         passwordField.delegate = self
         
         // Make the text fields look pretty
-        setUpTextField(imageNamed: "user.png", placeholder: "Username", textfield: usernameField)
+        setUpTextField(imageNamed: "user.png", placeholder: "Username", textfield: emailField)
         setUpTextField(imageNamed: "lock.png", placeholder: "Password", textfield: passwordField)
         
-        usernameField.rightViewMode = .always
-        usernameWheel.frame = CGRect(x: 0, y: 0, width: usernameField.frame.height, height: usernameField.frame.height)
-        usernameField.rightView = usernameWheel
+        emailField.rightViewMode = .always
+        usernameWheel.frame = CGRect(x: 0, y: 0, width: emailField.frame.height, height: emailField.frame.height)
+        emailField.rightView = usernameWheel
         
         passwordField.rightViewMode = .always
         passwordWheel.frame = CGRect(x: 0, y: 0, width: passwordField.frame.height, height: passwordField.frame.height)
@@ -83,44 +83,28 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIViewControll
         usernameWheel.startAnimating()
         passwordWheel.startAnimating()
         
-        KCSUser.login(
-            withUsername: usernameField.text!,
-            password: passwordField.text!,
-            withCompletionBlock: { (KCSUserCompletionBlock) -> Void in
-                
-                self.usernameWheel.stopAnimating()
-                self.passwordWheel.stopAnimating()
-                
-                if KCSUserCompletionBlock.1 == nil {
-                    //the log-in was successful and the user is now the active user and credentials saved
-                    //hide log-in view and show main app content
-                    let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-                    let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
-                    tabBarController.modalPresentationStyle = .custom
-                    self.transition.startingPoint = sender.center
-                    tabBarController.transitioningDelegate = self.transition
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    appDelegate.window?.rootViewController?.present(tabBarController, animated: true, completion: nil)
-                    
-                } else {
-                    //there was an error with the update save
-                    let code = (KCSUserCompletionBlock.1 as! NSError).code
-                    print(code)
-                    
-                    //todo: add other error codes
-                    
-                    switch(code) {
-                    // incorrect credentials
-                    case 401:
-                        self.animateTextFieldError(textfield: self.usernameField)
-                        self.animateTextFieldError(textfield: self.passwordField)
-                        break
-                    default:
-                        break
-                    }
-                }
+        Controller.sharedInstance.user.login(email: emailField.text!, password: passwordField.text!, completionHandler: { (error) -> Void in
+        
+            self.usernameWheel.stopAnimating()
+            self.passwordWheel.stopAnimating()
+            
+            if let error = error {
+                // error
+                self.animateTextFieldError(textfield: self.emailField)
+                self.animateTextFieldError(textfield: self.passwordField)
+            } else {
+                //the log-in was successful and the user is now the active user and credentials saved
+                //hide log-in view and show main app content
+                let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+                let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
+                tabBarController.modalPresentationStyle = .custom
+                self.transition.startingPoint = sender.center
+                tabBarController.transitioningDelegate = self.transition
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.window?.rootViewController?.present(tabBarController, animated: true, completion: nil)
             }
-        )
+        })
+        
     }
 
     // Make the textfield wiggle back and forth & become outlined in red
@@ -161,7 +145,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIViewControll
     // Move the UI up if we're about to begin editing
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         UIView.animate(withDuration: 0.3, animations: {
-            self.usernameField.center = CGPoint(x: self.usernameField.center.x, y: self.usernameField.center.y - self.view.frame.height / 7)
+            self.emailField.center = CGPoint(x: self.emailField.center.x, y: self.emailField.center.y - self.view.frame.height / 7)
             self.passwordField.center = CGPoint(x: self.passwordField.center.x, y: self.passwordField.center.y - self.view.frame.height / 7)
             self.loginButton.center = CGPoint(x: self.loginButton.center.x, y: self.loginButton.center.y - self.view.frame.height / 7)
             self.logo.center = CGPoint(x: self.logo.center.x, y: self.logo.center.y - self.view.frame.height / 7)
@@ -173,7 +157,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIViewControll
     // Move the UI back down if we're done editing
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         UIView.animate(withDuration: 0.3, animations: {
-            self.usernameField.center = CGPoint(x: self.usernameField.center.x, y: self.usernameField.center.y + self.view.frame.height / 7)
+            self.emailField.center = CGPoint(x: self.emailField.center.x, y: self.emailField.center.y + self.view.frame.height / 7)
             self.passwordField.center = CGPoint(x: self.passwordField.center.x, y: self.passwordField.center.y + self.view.frame.height / 7)
             self.loginButton.center = CGPoint(x: self.loginButton.center.x, y: self.loginButton.center.y + self.view.frame.height / 7)
             self.logo.center = CGPoint(x: self.logo.center.x, y: self.logo.center.y + self.view.frame.height / 7)
@@ -197,7 +181,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIViewControll
     
     // Determine if we can submit the username and password fields & enable the login button if we can
     func textFieldDidChange() {
-        if usernameField.text?.characters.count != 0 && passwordField.text?.characters.count != 0 {
+        if emailField.text?.characters.count != 0 && passwordField.text?.characters.count != 0 {
             loginButton.setTitleColor(.white, for: .normal)
             loginButton.isEnabled = true
         } else {

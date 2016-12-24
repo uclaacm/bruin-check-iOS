@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SignupViewController: ElasticModalViewController, UITextFieldDelegate {
     
@@ -131,45 +132,26 @@ class SignupViewController: ElasticModalViewController, UITextFieldDelegate {
         setActivityWheelsAnimating(state: true)
         
         // Attempt to create new user
-        KCSUser.user(
-            withUsername: usernameField.text!,
-            password: passwordField.text!,
-            fieldsAndValues: [
-                KCSUserAttributeEmail : emailField.text!,
-                "groupIdentifier": groupIdField.text!
-            ],
-            withCompletionBlock: { (KCSUser, error, KCSUserActionResult) -> Void in
-                if error == nil {
-                    // Success ... go back to login view
-                    self.sendToLogin("" as AnyObject)
-                } else {
-                    //there was an error with the create
-                    let e = error as! NSError
-                    print("Error signing up: \(KCSUserActionResult), error = \(e.code)")
-                    
-                    switch e.code {
-                    // todo: add more error codes
-                        
-                    // Username already exsists
-                    case 60007:
-                        self.animateTextFieldError(textfield: self.usernameField)
-                        break
-                    // Username already exsists
-                    case 409:
-                        self.animateTextFieldError(textfield: self.usernameField)
-                        break
-                        
-                    default:
-                        break
+       Controller.sharedInstance.user.signup(email: emailField.text!, password: passwordField.text!, completionHandler: { (error) -> Void in
+        
+            if let error = error {
+                // handle error
+                self.animateTextFieldError(textfield: self.usernameField)
+            } else {
+                // Successful signup, time to login
+                Controller.sharedInstance.user.login(email: self.emailField.text!, password: self.passwordField.text!, completionHandler: { (error) -> Void in
+                    if let error = error {
+                        // error logging in
+                    } else {
+                        // Successful login
+                        self.sendToLogin("" as AnyObject)
                     }
-                }
-                
-                // Done access internet, stop animating wheels
-                self.setActivityWheelsAnimating(state: false)
+                })
             }
-        )
         
-        
+            // Done access internet, stop animating wheels
+            self.setActivityWheelsAnimating(state: false)
+        })
     }
     
     // Make textfields wiggle on error

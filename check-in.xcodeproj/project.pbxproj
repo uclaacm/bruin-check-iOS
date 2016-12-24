@@ -17,6 +17,7 @@
 		C90500241D5EA5360027DBAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C90500231D5EA5360027DBAE /* Assets.xcassets */; };
 		C90500271D5EA5360027DBAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90500251D5EA5360027DBAE /* LaunchScreen.storyboard */; };
 		C91B0F9B1D5F8CAA00E80A46 /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91B0F9A1D5F8CAA00E80A46 /* AddEventViewController.swift */; };
+		C926073B1E0EE9C800889888 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926073A1E0EE9C800889888 /* Controller.swift */; };
 		C936AD441D61807800602F5A /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936AD421D61807800602F5A /* Event.swift */; };
 		C936AD451D61807800602F5A /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936AD431D61807800602F5A /* Member.swift */; };
 		C949ED101D62A6BE0002E7CD /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C949ED0F1D62A6BE0002E7CD /* Validator.swift */; };
@@ -58,6 +59,7 @@
 		C90500261D5EA5360027DBAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C90500281D5EA5360027DBAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C91B0F9A1D5F8CAA00E80A46 /* AddEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
+		C926073A1E0EE9C800889888 /* Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
 		C936AD421D61807800602F5A /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		C936AD431D61807800602F5A /* Member.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		C949ED0F1D62A6BE0002E7CD /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Validator.swift; path = ../Validator.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				C936AD421D61807800602F5A /* Event.swift */,
 				C936AD431D61807800602F5A /* Member.swift */,
 				C904DEF71D6764B500BAF1F4 /* User.swift */,
+				C926073A1E0EE9C800889888 /* Controller.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				C97D4D7D1D6005CC00204571 /* EventViewController.swift in Sources */,
 				C936AD451D61807800602F5A /* Member.swift in Sources */,
 				C952DCBC1D636CFC005D1750 /* Util.swift in Sources */,
+				C926073B1E0EE9C800889888 /* Controller.swift in Sources */,
 				C952DCB71D636CFC005D1750 /* EdgePanTransition.swift in Sources */,
 				C952DCCF1D637040005D1750 /* ElasticModalViewController.swift in Sources */,
 				C977D2FD1D5EC18B000A7AE5 /* LoginViewController.swift in Sources */,

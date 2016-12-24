@@ -248,7 +248,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate {
     func loadUserData() {
         user.name = KCSUser.active().username
         user.email = KCSUser.active().email
-        user.id = "390123"
+        //user.uid = "390123"
         
         tableView.reloadData()
     }
