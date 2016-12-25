@@ -9,6 +9,6 @@
 #ifndef check_in_Briding_Header_h
 #define check_in_Briding_Header_h
 
-#import <KinveyKit/KinveyKit.h>
+// #import <KinveyKit/KinveyKit.h>
 
 #endif /* check_in_Briding_Header_h */

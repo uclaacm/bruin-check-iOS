@@ -70,7 +70,8 @@ class EventsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            let collection = KCSCollection.init(from: "Events", of: Event.self)
+            
+            /* let collection = KCSCollection.init(from: "Events", of: Event.self)
             let store = KCSAppdataStore(collection: collection, options: nil)
             
             let eventToDelete = events[indexPath.row]
@@ -91,6 +92,7 @@ class EventsViewController: UITableViewController {
         
         
             tableView.deleteRows(at: [indexPath], with: .fade)
+             */
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
@@ -113,6 +115,7 @@ class EventsViewController: UITableViewController {
     }
     
     func loadData() {
+        /*
         let collection = KCSCollection.init(from: "Events", of: Event.self)
         let store = KCSAppdataStore(collection: collection, options: nil)
         
@@ -130,7 +133,7 @@ class EventsViewController: UITableViewController {
                 self.refresh.endRefreshing()
             },
                    withProgressBlock: nil
-        )
+        )*/
     }
 }
 

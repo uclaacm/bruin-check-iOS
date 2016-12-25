@@ -52,7 +52,7 @@ class DirectoryViewController: UITableViewController {
         // Determine if this view is being used to show the directory of the attendees of a specific event
         
         if let event = event {
-            self.navigationItem.title = "\(event.name!) attendees"
+            self.navigationItem.title = "\(event.name) attendees"
         } else {
             self.navigationItem.title = "Directory"
         }
@@ -96,6 +96,7 @@ class DirectoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+            /*
             let collection = KCSCollection.init(from: "Members", of: Member.self)
             let store = KCSAppdataStore(collection: collection, options: nil)
             
@@ -122,7 +123,7 @@ class DirectoryViewController: UITableViewController {
                         //NSLog("deleted response: %@", deletionDictorNil)
                     }
                     }, withProgressBlock: nil)
-            }
+            }*/
 
             
             
@@ -169,7 +170,7 @@ class DirectoryViewController: UITableViewController {
     func sortMembers() {
         
         members.sort { (a, b) -> Bool in
-            return a.name! < b.name!
+            return a.name < b.name
         }
         
         sectionHeaders = []
@@ -177,12 +178,11 @@ class DirectoryViewController: UITableViewController {
         var section = 0
         
         
-        
         for letter in alphabet {
             
             section += 1
             
-            let matches = members.filter({ ($0.name?.hasPrefix(letter))! })
+            let matches = members.filter({ ($0.name.hasPrefix(letter)) })
             if !matches.isEmpty {
                 membersDictionary[letter] = []
                 rowCountInSectionHeaders.append(matches.count)
@@ -196,6 +196,7 @@ class DirectoryViewController: UITableViewController {
         
     func loadData(event: Event?) {
     
+        /*
         let collection = KCSCollection.init(from: "Members", of: Member.self)
         let store = KCSAppdataStore(collection: collection, options: nil)
         
@@ -226,7 +227,7 @@ class DirectoryViewController: UITableViewController {
             )
 
             
-        }
+        }*/
     
     }
 }

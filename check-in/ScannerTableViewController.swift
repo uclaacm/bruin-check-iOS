@@ -25,16 +25,20 @@ class ScannerTableViewController: UITableViewController, UITextFieldDelegate {
     var nameField = UITextField()
     var emailField = UITextField()
     var idField = UITextField()
+    
+    var currentName = ""
+    var currentEmail = ""
+    var currentID = ""
 
     // Index paths to help find things
     var idIndexPath : IndexPath?
     var buttonIndexPath : IndexPath?
     
     // Member var that we will submit to the backend!ß
-    var member = Member()
+    var member: Member?
     
     // Event var that we will update w/ our new attendee
-    var event = Event()
+    var event: Event?
     
     // Activity wheels
     var nameWheel = UIActivityIndicatorView()
@@ -81,7 +85,7 @@ class ScannerTableViewController: UITableViewController, UITextFieldDelegate {
                 cell.addSubview(nameWheel)
                 
                 // Populate cell (if possible), otherwise put in placeholder text
-                if member.name != nil {
+                if let member = member  {
                     nameField.text = member.name
                 } else {
                     nameField.text = ""
@@ -101,7 +105,7 @@ class ScannerTableViewController: UITableViewController, UITextFieldDelegate {
                 cell.addSubview(emailWheel)
                 
                 // Populate cell (if possible), otherwise put in placeholder text
-                if member.email != nil {
+                if let member = member {
                     emailField.text = member.email
                 } else {
                     emailField.text = ""
@@ -124,8 +128,10 @@ class ScannerTableViewController: UITableViewController, UITextFieldDelegate {
                 idIndexPath = indexPath
                 
                 // Populate cell (if possible), otherwise put in placeholder text
-                if member.id != nil {
+                if let member = member {
                     idField.text = member.id
+                } else if currentID != "" {
+                    idField.text = currentID
                 } else {
                     idField.text = ""
                     idField.placeholder = "Enter ID"
@@ -156,19 +162,17 @@ class ScannerTableViewController: UITableViewController, UITextFieldDelegate {
         
         self.saveWheel.startAnimating()
         
-        // Update member var w/ user inputted info        
-        member.setName(n: nameField.text!)
-        member.setEmail(e: emailField.text!)
-        member.setId(i: idField.text!)
-        _ = member.addEvent(e: event)
-        member.setGroupIdentifier(g: event.groupIdentifier!)
+        // Update member var w/ user inputted info
+        member = Member(name: nameField.text!, email: emailField.text!, id: idField.text!, events: [String]())
+        _ = member?.addEvent(e: event!)
         
         // Save changes
-        member.save {
+        member?.save { error in
             let m = self.member
-            self.loadTextFields(m: Member())
+            self.currentID = ""
+            self.loadTextFields(m: nil)
             self.delegate?.readyToCaptureAgain()
-            self.updateEventWithNewAttendee(m: m)
+            self.updateEventWithNewAttendee(m: m!)
         }
     }
     
@@ -176,23 +180,23 @@ class ScannerTableViewController: UITableViewController, UITextFieldDelegate {
     func updateEventWithNewAttendee(m: Member) {
         
         // Add the member's entityId to the event
-        if(!event.addAttendee(m: m)) { self.saveWheel.stopAnimating(); return }
+        if(!(event!.addAttendee(m: m))) { self.saveWheel.stopAnimating(); return }
         
         // Save the event
-        event.save {
+        event!.save { error in
             self.saveWheel.stopAnimating()
         }
     }
     
     // Search database for id, reload textfields with info
     func didCaptureBarcode(barcode: String) {
-        member.loadFromID(id: barcode, groupID: event.groupIdentifier!, completion: { (success: Bool) -> Void in
+        member = Member(id: barcode, completion: { (success: Bool) -> Void in
             if success {
                 // Populate member w/ data from database
                 self.buttonText = DEFUALT_BUTTON_TEXT
                 self.loadTextFields(m: self.member)
             } else {
-                self.member.setId(i: barcode)
+                self.currentID = barcode
                 self.buttonText = NEW_MEMBER_SAVE_TEXT
                 self.loadTextFields(m: self.member)
             }
@@ -203,7 +207,7 @@ class ScannerTableViewController: UITableViewController, UITextFieldDelegate {
         })
     }
     
-    func loadTextFields(m: Member) {
+    func loadTextFields(m: Member?) {
         member = m
         tableView.reloadData()
     }

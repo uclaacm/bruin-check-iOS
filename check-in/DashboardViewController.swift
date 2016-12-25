@@ -153,7 +153,7 @@ class DashboardViewController: UIViewController, UITableViewDataSource, UITableV
     }
 
     func loadData() {
-
+/*
         if let type = type {
             if type == "events" {
                 let collection = KCSCollection.init(from: "Events", of: Event.self)
@@ -209,7 +209,7 @@ class DashboardViewController: UIViewController, UITableViewDataSource, UITableV
                 )
             }
         }
-        
+        */
     }
 
     

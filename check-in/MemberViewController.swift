@@ -59,7 +59,7 @@ class MemberViewController: UITableViewController, UITextFieldDelegate {
             idField.text = m.id
             navigationItem.title = m.name
         } else {
-            member = Member()
+            member = nil
         }
     }
     
@@ -69,9 +69,9 @@ class MemberViewController: UITableViewController, UITextFieldDelegate {
         if emailField.text != member?.email { emailWheel.startAnimating() }
         if idField.text != member?.id { idWheel.startAnimating() }
         
-        member?.setName(n: nameField.text!)
-        member?.setEmail(e: emailField.text!)
-        member?.save {
+        member?.name = nameField.text!
+        member?.email = emailField.text!
+        member?.save { error in
             self.tableView.reloadData()
             self.navigationItem.title = self.member?.name
             self.nameWheel.stopAnimating()

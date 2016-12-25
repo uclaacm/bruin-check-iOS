@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 class SignupViewController: ElasticModalViewController, UITextFieldDelegate {
     
@@ -136,12 +135,16 @@ class SignupViewController: ElasticModalViewController, UITextFieldDelegate {
         
             if let error = error {
                 // handle error
+                let errorString = error.localizedDescription as String
+                print(errorString)
                 self.animateTextFieldError(textfield: self.usernameField)
             } else {
                 // Successful signup, time to login
                 Controller.sharedInstance.user.login(email: self.emailField.text!, password: self.passwordField.text!, completionHandler: { (error) -> Void in
                     if let error = error {
                         // error logging in
+                        let errorString = error.localizedDescription as String
+                        print(errorString)
                     } else {
                         // Successful login
                         self.sendToLogin("" as AnyObject)

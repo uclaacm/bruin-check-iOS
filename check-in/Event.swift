@@ -7,10 +7,80 @@
 //
 
 import Foundation
+import Parse
 
-class Event : NSObject {    //all NSObjects in Kinvey implicitly implement KCSPersistable
+class Event {
     
+    var parse_event = PFObject(className: "Event")
     
+    init?(name: String, startDate: NSDate, endDate: NSDate, location: String, attendees: [String]) {
+        parse_event["name"] = name
+        parse_event["startDate"] = startDate as Any
+        parse_event["endDate"] = endDate as Any
+        parse_event["location"] = location
+        parse_event["attendees"] = attendees
+        parse_event["groupID"] = Controller.sharedInstance.user.groupID
+        save()
+    }
+    
+    func save() {
+        parse_event.saveInBackground(block: nil)
+    }
+    
+    func save(completionHandler: @escaping (Error?) -> Void) {
+        parse_event.saveInBackground(block: { (user, error) -> Void in
+            completionHandler(error)
+        })
+    }
+    
+    var oid: String {
+        return parse_event.objectId!
+    }
+    
+    init(object: PFObject) {
+        parse_event = object
+    }
+    
+    var name: String {
+        get { return parse_event["name"] as! String }
+        set(n) { parse_event["name"] = n }
+    }
+    
+    var startDate: NSDate {
+        get { return parse_event["startDate"] as! NSDate }
+        set(s) { parse_event["startDate"] = s }
+    }
+    
+    var endDate: NSDate {
+        get { return parse_event["endDate"] as! NSDate }
+        set(e) { parse_event["endDate"] = e }
+    }
+    
+    var location: String {
+        get { return parse_event["location"] as! String }
+        set(l) { parse_event["location"] = l }
+    }
+    var attendees: [String] {
+        get { return parse_event["attendees"] as! [String] }
+        set(a) { parse_event["attendees"] = attendees }
+    }
+    
+    func addAttendee(m: Member) -> Bool {
+        if (attendees.index(of: m.oid)) != nil {
+            return false
+        } else {
+            attendees.append(m.oid)
+            return true
+        }
+    }
+    
+    func removeAttendee(entityId: String) {
+        if let i = attendees.index(of: entityId) {
+            attendees.remove(at: i)
+        }
+    }
+    
+    /*
     /* -------------------------------------------------------- */
     
     private(set) var entityId: String? //Kinvey entity _id
@@ -128,4 +198,5 @@ class Event : NSObject {    //all NSObjects in Kinvey implicitly implement KCSPe
         ]
 
     }
+ */
 }

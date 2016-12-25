@@ -88,7 +88,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIViewControll
             self.usernameWheel.stopAnimating()
             self.passwordWheel.stopAnimating()
             
-            if let error = error {
+            if error != nil {
                 // error
                 self.animateTextFieldError(textfield: self.emailField)
                 self.animateTextFieldError(textfield: self.passwordField)

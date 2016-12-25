@@ -22,7 +22,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate {
     var buttonIndexPath : IndexPath?
     
     // Event var that we will update w/ our new attendee
-    var event = Event()
+    //var event = Event()
     
     // Activity wheels
     var nameWheel = UIActivityIndicatorView()
@@ -35,7 +35,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate {
     
     var saveButton = UIBarButtonItem()
     
-    var user = User()
+    var user = Controller.sharedInstance.user
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,11 +73,12 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate {
     }
 
     @IBAction func buttonPressed(_ sender: AnyObject) {
-        KCSUser.active().logout()
+        Controller.sharedInstance.user.logout()
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         self.present(viewController, animated: true, completion: nil)
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -195,7 +196,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate {
         if indexPath != buttonIndexPath { return }
         
         // initiate logout
-        KCSUser.active().logout()
+        Controller.sharedInstance.user.logout()
         
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
@@ -213,15 +214,15 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate {
         if nameField.text != user.name { nameWheel.startAnimating() }
         if emailField.text != user.email { emailWheel.startAnimating() }
         
-        
-        KCSUser.active().setValue(nameField.text, forKeyPath: "username")
-        KCSUser.active().setValue(emailField.text, forKeyPath: "email")
+        Controller.sharedInstance.user.name = nameField.text
+        Controller.sharedInstance.user.email = emailField.text
         
         if (passwordField.text == passwordField2.text) && passwordField.text?.characters.count != 0 {
             
             passwordWheel.startAnimating()
             passwordWheel2.startAnimating()
             
+            /*
             KCSUser.active().changePassword(passwordField.text, completionBlock: { (object, error) in
                 print("\(error)")
                 
@@ -234,11 +235,10 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate {
                 self.passwordField.placeholder = "Enter a new password"
                 self.passwordField2.placeholder = "Re-enter new password"
                 }
-            )
+            )*/
         }
         
-        
-        KCSUser.active().save { (object, error) in
+        Controller.sharedInstance.user.save(completionHandler:) { (error) in
             print("\(error)")
             self.nameWheel.stopAnimating()
             self.emailWheel.stopAnimating()
@@ -246,8 +246,8 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func loadUserData() {
-        user.name = KCSUser.active().username
-        user.email = KCSUser.active().email
+        //user.name = KCSUser.active().username
+        //user.email = KCSUser.active().email
         //user.uid = "390123"
         
         tableView.reloadData()

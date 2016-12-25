@@ -7,47 +7,78 @@
 //
 
 import Foundation
+import Parse
 
-class Member : NSObject {
+class Member {
     
-    /* -------------------------------------------------------- */
+    var parse_member = PFObject(className: "Member")
     
-    private(set) var entityId: String? //Kinvey entity _id
-    private(set) var name: String?
-    private(set) var email: String?
-    private(set) var id : String?
-    private(set) var events: [String]
-    private(set) var groupIdentifier: String?
-    private(set) var metadata: KCSMetadata? //Kinvey metadata, optional
-    
-    /* -------------------------------------------------------- */
-    
-    // Set-ers
-    
-    func setEntityId(e: String) { entityId = e }
-    func setName(n: String) { name = n }
-    func setEmail(e: String) { email = e }
-    func setId(i: String) { id = i }
-    func setEvents(e: [String]) { events = e }
-    func setGroupIdentifier(g: String) { groupIdentifier = g }
-    func setMetadata(m: KCSMetadata) { metadata = m }
-    func setAll(_entityId: String, _name: String, _email: String, _id: String, _events: [String], _groupIdentifer: String, _metadata: KCSMetadata) {
-        entityId = _entityId
-        name = _name
-        email = _email
-        id = _id
-        events = _events
-        groupIdentifier = _groupIdentifer
-        metadata = _metadata
+    init?(name: String, email: String, id: String, events: [String]) {
+        parse_member["name"] = name
+        parse_member["email"] = email
+        parse_member["id"] = id
+        parse_member["events"] = events
     }
     
-    /* -------------------------------------------------------- */
-    
-    override init() {
-        events = []
-        super.init()
+    init?(id: String, completion: @escaping (Bool) -> Void) {
+        // TODO
+        completion(true)
     }
     
+    init(object: PFObject) {
+        parse_member = object
+    }
+    
+    func save() {
+        parse_member.saveInBackground(block: nil)
+    }
+    
+    func save(completionHandler: @escaping (Error?) -> Void) {
+        parse_member.saveInBackground(block: { (user, error) -> Void in
+            completionHandler(error)
+        })
+    }
+    
+    var oid: String {
+        return parse_member.objectId!
+    }
+    
+    var name: String {
+        get { return parse_member["name"] as! String }
+        set(n) { parse_member["name"] = n }
+    }
+    
+    var email: String {
+        get { return parse_member["email"] as! String }
+        set(e) { parse_member["email"] = e }
+    }
+    
+    var id: String {
+        get { return parse_member["id"] as! String }
+        set(i) { parse_member["id"] = i }
+    }
+    
+    var events: [String] {
+        get { return parse_member["events"] as! [String] }
+        set(e) { parse_member["evetns"] = e }
+    }
+    
+    func addEvent(e: Event) -> Bool {
+        if (events.index(of: e.oid)) != nil {
+            return false
+        } else {
+            events.append(e.oid)
+            return true
+        }
+    }
+    
+    func removeEvent(entityId: String) {
+        if let i = events.index(of: entityId) {
+            events.remove(at: i)
+        }
+    }
+    
+ /*
     func save(completion: @escaping () -> Void) {
         let collection = KCSCollection.init(from: "Members", of: Member.self)
         let store = KCSAppdataStore(collection: collection, options: nil)
@@ -130,5 +161,5 @@ class Member : NSObject {
             "groupIdentifier" : "groupIdentifier",
             "metadata" : KCSEntityKeyMetadata //optional _metadata field
         ]
-    }
+    }*/
 }

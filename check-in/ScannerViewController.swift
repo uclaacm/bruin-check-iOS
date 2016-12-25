@@ -13,7 +13,6 @@ import AVFoundation
 
 class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, ScannerTableViewDelegate {
     
-    
     /* -------------------------------------------------------- */
     
     // Scanner vars
@@ -56,7 +55,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         
         // Create a nilable NSError to hand off to the next method.
         // Make sure to use the "var" keyword and not "let"
-        let error : NSError? = nil
+        let _ : NSError? = nil
         
         let input : AVCaptureDeviceInput? = try? AVCaptureDeviceInput.init(device: device)
         
@@ -66,7 +65,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         }
         else {
             // This is fine for a demo, do something real with this in your app. :)
-            print(error)
+            //print(error)
         }
         
         let output = AVCaptureMetadataOutput()
@@ -95,7 +94,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     func restartCapture() {
-        tableViewController.loadTextFields(m: Member())
+        tableViewController.loadTextFields(m: nil)
         readyToCaptureAgain()
     }
     

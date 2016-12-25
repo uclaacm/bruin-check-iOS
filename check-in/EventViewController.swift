@@ -58,7 +58,7 @@ class EventViewController: UITableViewController, UITextFieldDelegate {
             locationField.text = e.location
             navigationItem.title = e.name
         } else {
-            event = Event()
+            //event = Event()
         }
     }
     
@@ -69,11 +69,11 @@ class EventViewController: UITableViewController, UITextFieldDelegate {
         if locationField.text != event?.location { locationWheel.startAnimating() }
         
         // Updaet event
-        event?.setName(n: titleField.text!)
-        event?.setLocation(l: locationField.text!)
+        event?.name = titleField.text!
+        event?.location = locationField.text!
         
         // Save event
-        event?.save {
+        event?.save(completionHandler:) { error in
             // Update UI w/ changes
             self.tableView.reloadData()
             self.navigationItem.title = self.event?.name
@@ -155,7 +155,7 @@ class EventViewController: UITableViewController, UITextFieldDelegate {
         if indexPath == checkInPath {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier: "ScannerViewController") as! ScannerViewController
-            viewController.event = event
+            viewController.event = event!
             let backItem = UIBarButtonItem()
             backItem.title = "Done"
             backItem.style = .done

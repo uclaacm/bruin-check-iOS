@@ -7,59 +7,64 @@
 //
 
 import Foundation
-import FirebaseAuth
+import Parse
 
 class User {
     
     /* -------------------------------------------------------- */
     
-    //var entityId: String? //Kinvey entity _id
-    var uid : String? {
-        return FIRAuth.auth()?.currentUser?.uid
-    }
+    let parse_user = PFUser()
     
+    var uid : String?
     var name: String? {
-        get {
-            return FIRAuth.auth()?.currentUser?.displayName
+        get { return PFUser.current()?.username }
+        set(n) {
+            parse_user.username = n
+            save()
         }
-        
-        set {
-            
-        }
-        
     }
     
     var email: String? {
-        get {
-            return FIRAuth.auth()?.currentUser?.email
-        }
-        
-        set {
-            
+        get { return PFUser.current()?.email }
+        set(n) {
+            parse_user.email = n
+            save()
         }
     }
-
     
-    
-    //var events: [String]
-    //var groupIdentifier: String?
-    //var metadata: KCSMetadata? //Kinvey metadata, optional
-    
+    var groupID: String?
     /* -------------------------------------------------------- */
     
     func signup(email: String, password: String, completionHandler: @escaping ( (Error?) -> Void ) ) {
-        FIRAuth.auth()!.createUser(withEmail: email, password: password) { user, error in
-            
-            if error == nil {
-                
-            }
+        parse_user.username = email
+        parse_user.password = password
+        parse_user.email = email
+        // other fields can be set just like with PFObject
+        //user["phone"] = "415-392-0202"
+        
+        parse_user.signUpInBackground { (succeeded: Bool, error: Error?) -> Void in
             
             completionHandler(error)
         }
     }
     
     func login(email: String, password: String, completionHandler: @escaping ( (Error?) -> Void) ) {
-        FIRAuth.auth()!.signIn(withEmail: email, password: password, completion: { (user, error) in
+        PFUser.logInWithUsername(inBackground: email, password: password) { (user: PFUser?, error: Error?) -> Void in
+            completionHandler(error)
+        }
+        
+    }
+    
+    func logout() {
+        PFUser.logOut()
+    }
+    
+    func save() {
+        parse_user.saveInBackground(block: nil)
+    }
+    
+    func save(completionHandler: @escaping (Error?) -> Void) {
+        parse_user.saveInBackground(block: { (user, error) -> Void in
             completionHandler(error)
         })
     }

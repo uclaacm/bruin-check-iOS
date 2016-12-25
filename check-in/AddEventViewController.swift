@@ -109,7 +109,7 @@ class AddEventViewController: UITableViewController, UITextFieldDelegate {
     // MARK: - Button Actions
     
     @IBAction func submitAddNewEvent(_ sender: AnyObject) {
-        addNewEvent(name: titleField.text!, startDate: startDatePicker.date as NSDate, endDate: endDatePicker.date as NSDate, location: locationField.text!, id: KCSUser.active().getValueForAttribute("groupIdentifier") as! String)
+        addNewEvent(name: titleField.text!, startDate: startDatePicker.date as NSDate, endDate: endDatePicker.date as NSDate, location: locationField.text!, id: Controller.sharedInstance.user.groupID!)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -153,9 +153,9 @@ class AddEventViewController: UITableViewController, UITextFieldDelegate {
     
     // Save the event
     func addNewEvent(name: String, startDate: NSDate, endDate: NSDate, location: String, id: String) {
-        let event = Event()
-        event.setAll(_entityId: type(of: KCSEntityKeyId).init(), _name: name, _startDate: startDate, _endDate: endDate, _location: location, _attendees: [], _groupIdentifer: id, _metadata: KCSMetadata.init())
-        event.save {
+
+        let event = Event(name: name, startDate: startDate, endDate: endDate, location: location, attendees: [String]())
+        event?.save(completionHandler:) { error in
             // Do something on save sucess
         }
     }
