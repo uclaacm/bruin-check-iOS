@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -33,6 +34,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if(KCSUser.active() == nil) {
             showLoginScreen()
         }*/
+        
+        let configuration = ParseClientConfiguration {
+            $0.applicationId = "YOUR_APP_ID"
+            $0.clientKey = ""
+            $0.server = "http://localhost:1337/parse"
+        }
+        
+        Parse.initialize(with: configuration)
+
         
         UIApplication.shared.statusBarStyle = .lightContent
         
