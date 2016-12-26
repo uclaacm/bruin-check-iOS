@@ -15,34 +15,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    private func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        /*KCSClient.shared().initializeKinveyService(
-            forAppKey: "kid_B1JFVb3K",
-            withAppSecret: "376d1adbedf84298937db0bd9922a487",
-            usingOptions: nil
-        )
-        
-        KCSPing.pingKinvey { (result) in
-            if result?.pingWasSuccessful == true {
-                NSLog("Kinvey Ping Success")
-            } else {
-                NSLog("Kinvey Ping Failed")
-            }
-        }
-        
-        if(KCSUser.active() == nil) {
-            showLoginScreen()
-        }*/
-        
         let configuration = ParseClientConfiguration {
-            $0.applicationId = "YOUR_APP_ID"
-            $0.clientKey = ""
-            $0.server = "http://localhost:1337/parse"
+            $0.applicationId = "check-in"
+            $0.clientKey = "YtbXNch5fowMAF5y0BFo"
+            $0.server = "https://check-in-parse.herokuapp.com/parse"
         }
         
         Parse.initialize(with: configuration)
-
+        
+        /*
+        let testObject = PFObject(className: "TestObject")
+        testObject["foo"] = "bar"
+        print(testObject["foo"])
+        testObject.saveInBackground { (PFBooleanResultBlock) -> Void in
+            print("Object has been saved.")
+        }
+        */
         
         UIApplication.shared.statusBarStyle = .lightContent
         

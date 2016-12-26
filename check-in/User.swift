@@ -13,37 +13,36 @@ class User {
     
     /* -------------------------------------------------------- */
     
-    let parse_user = PFUser()
+    //let parse_user = PFUser()
     
     var uid : String?
     var name: String? {
         get { return PFUser.current()?.username }
-        set(n) {
-            parse_user.username = n
-            save()
-        }
+        set(n) { PFUser.current()?.username = n }
     }
     
     var email: String? {
         get { return PFUser.current()?.email }
-        set(n) {
-            parse_user.email = n
-            save()
-        }
+        set(n) { PFUser.current()?.email = n }
     }
     
-    var groupID: String?
+    var groupID: String? {
+        get { return PFUser.current()?["groupID"] as! String? }
+        set(i) { PFUser.current()?["groupID"] = i }
+    }
     /* -------------------------------------------------------- */
     
-    func signup(email: String, password: String, completionHandler: @escaping ( (Error?) -> Void ) ) {
-        parse_user.username = email
-        parse_user.password = password
-        parse_user.email = email
+    func signup(email: String, password: String, groupID: String, completionHandler: @escaping ( (Error?) -> Void ) ) {
+        let user = PFUser()
+        
+        user.username = email as String
+        user.password = password as String
+        user.email = email as String
+        user["groupID"] = groupID
         // other fields can be set just like with PFObject
         //user["phone"] = "415-392-0202"
         
-        parse_user.signUpInBackground { (succeeded: Bool, error: Error?) -> Void in
-            
+        user.signUpInBackground { (succeeded: Bool, error: Error?) -> Void in
             completionHandler(error)
         }
     }
@@ -60,11 +59,11 @@ class User {
     }
     
     func save() {
-        parse_user.saveInBackground(block: nil)
+        PFUser.current()?.saveInBackground(block: nil)
     }
     
     func save(completionHandler: @escaping (Error?) -> Void) {
-        parse_user.saveInBackground(block: { (user, error) -> Void in
+        PFUser.current()?.saveInBackground(block: { (user, error) -> Void in
             completionHandler(error)
         })
     }

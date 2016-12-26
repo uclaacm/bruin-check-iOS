@@ -9,9 +9,6 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
-
-    
-    //var contentLength: CGFloat = 50
     
     override func viewDidLoad() {
         super.viewDidLoad()

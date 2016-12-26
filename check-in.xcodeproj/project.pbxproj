@@ -44,6 +44,7 @@
 		C97D4D851D603AB100204571 /* ScannerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D4D841D603AB100204571 /* ScannerTableViewController.swift */; };
 		C97D4D891D6159B600204571 /* DirectoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D4D881D6159B600204571 /* DirectoryViewController.swift */; };
 		C98B32221D68F26C00143BE5 /* MemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98B32211D68F26C00143BE5 /* MemberViewController.swift */; };
+		C9D397111E1082640059D866 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D397101E1082640059D866 /* File.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,7 @@
 		C97D4D841D603AB100204571 /* ScannerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerTableViewController.swift; sourceTree = "<group>"; };
 		C97D4D881D6159B600204571 /* DirectoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectoryViewController.swift; sourceTree = "<group>"; };
 		C98B32211D68F26C00143BE5 /* MemberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberViewController.swift; sourceTree = "<group>"; };
+		C9D397101E1082640059D866 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		DA66A4E1E1E5DF35B7B7C87A /* Pods-check-in.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-check-in.debug.xcconfig"; path = "Pods/Target Support Files/Pods-check-in/Pods-check-in.debug.xcconfig"; sourceTree = "<group>"; };
 		EE428BBEF5628CA19D76493D /* Pods_check_in.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_check_in.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -197,6 +199,7 @@
 				C90500251D5EA5360027DBAE /* LaunchScreen.storyboard */,
 				C90500281D5EA5360027DBAE /* Info.plist */,
 				C977D2FB1D5EBE2A000A7AE5 /* check-in-Bridging-Header.h */,
+				C9D397101E1082640059D866 /* File.swift */,
 			);
 			path = "check-in";
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				C91B0F9B1D5F8CAA00E80A46 /* AddEventViewController.swift in Sources */,
 				C952DCC71D636D0A005D1750 /* MotionAnimator.swift in Sources */,
 				C952DCCD1D636DF5005D1750 /* DashboardViewController.swift in Sources */,
+				C9D397111E1082640059D866 /* File.swift in Sources */,
 				C904DEEF1D63E35F00BAF1F4 /* DashboardCell.swift in Sources */,
 				C98B32221D68F26C00143BE5 /* MemberViewController.swift in Sources */,
 				C952DCCA1D636D0A005D1750 /* Types.swift in Sources */,

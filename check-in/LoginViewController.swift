@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class LoginViewController: UIViewController, UITextFieldDelegate, UIViewControllerTransitioningDelegate {
     
@@ -29,7 +30,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIViewControll
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         // Load the pretty gradient
         loadBackgroundGradient()
         

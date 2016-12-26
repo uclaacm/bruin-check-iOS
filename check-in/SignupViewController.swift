@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class SignupViewController: ElasticModalViewController, UITextFieldDelegate {
     
@@ -131,7 +132,7 @@ class SignupViewController: ElasticModalViewController, UITextFieldDelegate {
         setActivityWheelsAnimating(state: true)
         
         // Attempt to create new user
-       Controller.sharedInstance.user.signup(email: emailField.text!, password: passwordField.text!, completionHandler: { (error) -> Void in
+        Controller.sharedInstance.user.signup(email: emailField.text!, password: passwordField.text!, groupID: groupIdField.text!, completionHandler: { (error) -> Void in
         
             if let error = error {
                 // handle error
@@ -140,7 +141,7 @@ class SignupViewController: ElasticModalViewController, UITextFieldDelegate {
                 self.animateTextFieldError(textfield: self.usernameField)
             } else {
                 // Successful signup, time to login
-                Controller.sharedInstance.user.login(email: self.emailField.text!, password: self.passwordField.text!, completionHandler: { (error) -> Void in
+                /*Controller.sharedInstance.user.login(email: self.emailField.text!, password: self.passwordField.text!, completionHandler: { (error) -> Void in
                     if let error = error {
                         // error logging in
                         let errorString = error.localizedDescription as String
@@ -149,7 +150,8 @@ class SignupViewController: ElasticModalViewController, UITextFieldDelegate {
                         // Successful login
                         self.sendToLogin("" as AnyObject)
                     }
-                })
+                })*/
+                self.sendToLogin("" as AnyObject)
             }
         
             // Done access internet, stop animating wheels
