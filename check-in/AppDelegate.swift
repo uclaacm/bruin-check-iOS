@@ -34,6 +34,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         */
         
+        if(PFUser.current() == nil) {
+            showLoginScreen()
+        }
+        
         UIApplication.shared.statusBarStyle = .lightContent
         
         return true

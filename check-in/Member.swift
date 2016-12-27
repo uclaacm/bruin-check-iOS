@@ -14,10 +14,26 @@ class Member {
     var parse_member = PFObject(className: "Member")
     
     init?(name: String, email: String, id: String, events: [String]) {
+        let controller = Controller.sharedInstance
+        
         parse_member["name"] = name
         parse_member["email"] = email
         parse_member["id"] = id
         parse_member["events"] = events
+        parse_member["group"] = controller.user.currentGroup
+        
+        controller.getRole(name: controller.user.currentGroup) { (role, error) in
+            
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            let acl = controller.createACLforRole(role: role)
+            self.parse_member.acl = acl
+            
+            self.save()
+        }
     }
     
     init?(id: String, completion: @escaping (Bool) -> Void) {

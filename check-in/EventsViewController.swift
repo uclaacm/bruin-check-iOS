@@ -22,6 +22,8 @@ class EventsViewController: UITableViewController {
 
     /* -------------------------------------------------------- */
     
+    let controller = Controller.sharedInstance
+    
     var events = [Event]()
     var refresh = UIRefreshControl()
     
@@ -134,6 +136,17 @@ class EventsViewController: UITableViewController {
             },
                    withProgressBlock: nil
         )*/
+        
+        controller.getAllEvents { (events_list, error) in
+            self.events = events_list
+            self.events.sort(by: { (a, b) -> Bool in
+                return (a.startDate as NSDate!).timeIntervalSinceNow > (b.startDate as NSDate!).timeIntervalSinceNow
+            })
+            
+            self.tableView.reloadData()
+        }
+        
+        self.refresh.endRefreshing()
     }
 }
 

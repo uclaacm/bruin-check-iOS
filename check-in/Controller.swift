@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Parse
 
 class Controller {
     
@@ -14,4 +15,60 @@ class Controller {
     private init() { }
     
     let user = User()
+    
+    func createACLforRole(role: PFRole) -> PFACL {
+        let acl = PFACL()
+        
+        acl.getPublicReadAccess = false
+        acl.getPublicWriteAccess = false
+        acl.setWriteAccess(true, for: role)
+        acl.setReadAccess(true, for: role)
+        
+        return acl
+    }
+    
+    func getAllEvents(completionHandler: @escaping (([Event], Error?) -> Void)) {
+        let query = PFQuery(className: "Event")
+        query.findObjectsInBackground { (objects: [PFObject]?, error) in
+            var events = [Event]()
+            if let objects = objects {
+                for object in objects {
+                    events.append(Event(object: object))
+                }
+            }
+            
+            completionHandler(events, error)
+        }
+    }
+    
+    func getAllMembers(completionHandler: @escaping (([Member], Error?) -> Void)) {
+        let query = PFQuery(className: "Event")
+        query.findObjectsInBackground { (objects: [PFObject]?, error) in
+            var members = [Member]()
+            if let objects = objects {
+                for object in objects {
+                    members.append(Member(object: object))
+                }
+            }
+            
+            completionHandler(members, error)
+        }
+    }
+    
+    func getRole(name: String, completionHandler: @escaping ((PFRole, Error?) -> Void)) {
+        let query = PFRole.query()
+        query?.whereKey("name", equalTo: name)
+        query?.findObjectsInBackground(block: { (objects, error) in
+            
+            var role = PFRole()
+            if let objects = objects {
+                let roles = objects as! [PFRole]
+                role = roles[0]
+            }
+            
+            completionHandler(role, error)
+            
+        })
+
+    }
 }

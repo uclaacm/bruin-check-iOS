@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class DashboardViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -23,10 +24,27 @@ class DashboardViewController: UIViewController, UITableViewDataSource, UITableV
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var countType: UILabel!
     
+    let controller = Controller.sharedInstance
+    
     /* -------------------------------------------------------- */
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+        let query = PFRole.query()
+        query?.whereKey("name", equalTo: "acm")
+        query?.whereKey("users", equalTo: PFUser.current()!)
+        query?.findObjectsInBackground(block: { (objects, error) in
+            
+            if let error = error {
+                print(error)
+            } else {
+                print("user has role acm")
+            }
+        })
+        
         
         // Make the background blue
         view.backgroundColor = UIColor(red:0.23, green:0.48, blue:0.84, alpha:1.0)
@@ -153,65 +171,50 @@ class DashboardViewController: UIViewController, UITableViewDataSource, UITableV
     }
 
     func loadData() {
-/*
         if let type = type {
             if type == "events" {
-                let collection = KCSCollection.init(from: "Events", of: Event.self)
-                let store = KCSAppdataStore(collection: collection, options: nil)
                 
-                let query = KCSQuery(onField: "groupIdentifier", withExactMatchForValue: KCSUser.active().getValueForAttribute("groupIdentifier") as! NSObject)
-                
-                _ = store?.query(withQuery:
-                    query, withCompletionBlock: { (events_list, error) -> Void in
-                        if let events_list = events_list {
-                            // Sucessfully got events list
-                            self.events = events_list as! [Event]
-                            
-                            // Sort the events array alphbetically
-                            self.events.sort(by: { (a, b) -> Bool in
-                                return a.attendees.count > b.attendees.count
-                            })
-                            
-                            // Reload with new data
-                            self.listView.reloadData()
-                        }
+                // find events
+                controller.getAllEvents { (events_list, error) in
+                    
+                        // Sucessfully got events list
+                        self.events = events_list 
                         
-                        // Done interacting w/ the interwebs...we can turn off the activity wheel
-                        self.refresh.endRefreshing()
-                    },
-                           withProgressBlock: nil
-                )
+                        // Sort the events array alphbetically
+                        self.events.sort(by: { (a, b) -> Bool in
+                            return a.attendees.count > b.attendees.count
+                        })
+                        
+                        // Reload with new data
+                        self.listView.reloadData()
+                    }
+                    
+                    // Done interacting w/ the interwebs...we can turn off the activity wheel
+                    self.refresh.endRefreshing()
+                }
+
+                
             } else if type == "members" {
-                let collection = KCSCollection.init(from: "Members", of: Member.self)
-                let store = KCSAppdataStore(collection: collection, options: nil)
                 
-                let query = KCSQuery(onField: "groupIdentifier", withExactMatchForValue: KCSUser.active().getValueForAttribute("groupIdentifier") as! String as NSObject!)
+                // find members
+                controller.getAllMembers { (members_list, error) in
+                    
+                    // Sucessfully got members list
+                    self.members = members_list
+                    
+                    // Sort the events array alphbetically
+                    self.members.sort(by: { (a, b) -> Bool in
+                        return a.events.count > b.events.count
+                    })
+                    
+                    // Reload with new data
+                    self.listView.reloadData()
+                }
                 
-                _ = store?.query(withQuery:
-                    query, withCompletionBlock: { (members_list, error) -> Void in
-                        if let members_list = members_list {
-                            // Sucessfully got events list
-                            self.members = members_list as! [Member]
-                            
-                            // Sort the events array alphbetically
-                            self.members.sort(by: { (a, b) -> Bool in
-                                return a.events.count > b.events.count
-                            })
-                            
-                            // Reload with new data
-                            self.listView.reloadData()
-                        }
-                        
-                        // Done interacting w/ the interwebs...we can turn off the activity wheel
-                        self.refresh.endRefreshing()
-                    },
-                           withProgressBlock: nil
-                )
+                // Done interacting w/ the interwebs...we can turn off the activity wheel
+                self.refresh.endRefreshing()
             }
         }
-        */
-    }
-
     
     /*
      override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -26,10 +26,16 @@ class User {
         set(n) { PFUser.current()?.email = n }
     }
     
-    var groupID: String? {
-        get { return PFUser.current()?["groupID"] as! String? }
-        set(i) { PFUser.current()?["groupID"] = i }
+    var groups: [String]? {
+        get { return PFUser.current()?["groups"] as! [String]? }
+        set(g) { PFUser.current()?["groups"] = g }
     }
+    
+    var currentGroup: String {
+        get { return PFUser.current()?["currentGroup"] as! String }
+        set(g) { PFUser.current()?["currentGroup"] = g }
+    }
+
     /* -------------------------------------------------------- */
     
     func signup(email: String, password: String, groupID: String, completionHandler: @escaping ( (Error?) -> Void ) ) {
@@ -38,20 +44,74 @@ class User {
         user.username = email as String
         user.password = password as String
         user.email = email as String
-        user["groupID"] = groupID
+        
+        var groups = [String]()
+        groups.append(groupID)
+        user["groups"] = groups
+        user["currentGroup"] = groupID
+        
         // other fields can be set just like with PFObject
         //user["phone"] = "415-392-0202"
         
         user.signUpInBackground { (succeeded: Bool, error: Error?) -> Void in
-            completionHandler(error)
+           
+            if let error = error {
+                completionHandler(error)
+                return
+            }
+            
+            let query = PFRole.query()
+            query?.whereKey("name", equalTo: groupID)
+            
+            query?.findObjectsInBackground(block: { (objects, error) in
+                
+                if let error = error {
+                    completionHandler(error)
+                    return
+                }
+                
+
+                
+                var role = PFRole()
+                
+                
+                
+                if objects != nil && objects!.count > 0 {
+                    role = objects![0] as! PFRole
+                    
+                } else {
+                    let acl = PFACL()
+                    acl.getPublicReadAccess = true
+                    acl.getPublicWriteAccess = false
+                    
+                    acl.setWriteAccess(true, for: user)
+                    role = PFRole(name: groupID, acl: PFACL())
+                }
+                
+                role.users.add(user)
+                role.saveInBackground(block: { (success, error) in
+                    completionHandler(error)
+                })
+            })
         }
     }
     
+    func createAndSaveUser(email: String, password: String, completionHandler: @escaping ( (Error?) -> Void ) ) {
+            }
+    
     func login(email: String, password: String, completionHandler: @escaping ( (Error?) -> Void) ) {
         PFUser.logInWithUsername(inBackground: email, password: password) { (user: PFUser?, error: Error?) -> Void in
-            completionHandler(error)
+            if error != nil {
+                let query = PFRole.query()
+                query?.whereKey("users", equalTo: PFUser.current()!)
+                query?.findObjectsInBackground(block: { (objects, error) in
+                    PFUser.current()?["currentRole"] = objects?[0] as! PFRole
+                    completionHandler(error)
+                })
+            } else {
+                completionHandler(error)
+            }
         }
-        
     }
     
     func logout() {

@@ -14,13 +14,28 @@ class Event {
     var parse_event = PFObject(className: "Event")
     
     init?(name: String, startDate: NSDate, endDate: NSDate, location: String, attendees: [String]) {
+    
+        let controller = Controller.sharedInstance
+        
         parse_event["name"] = name
         parse_event["startDate"] = startDate as Any
         parse_event["endDate"] = endDate as Any
         parse_event["location"] = location
         parse_event["attendees"] = attendees
-        parse_event["groupID"] = Controller.sharedInstance.user.groupID
-        save()
+        parse_event["group"] = controller.user.currentGroup
+        
+        controller.getRole(name: controller.user.currentGroup) { (role, error) in
+            
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            let acl = controller.createACLforRole(role: role)
+            self.parse_event.acl = acl
+            
+            self.save()
+        }
     }
     
     func save() {
