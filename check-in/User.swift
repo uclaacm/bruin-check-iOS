@@ -60,6 +60,25 @@ class User {
                 return
             }
             
+            
+            let acl = PFACL()
+            acl.getPublicReadAccess = false
+            acl.getPublicWriteAccess = false
+            
+            acl.setWriteAccess(true, for: user)
+            acl.setReadAccess(true, for: user)
+            
+            let role = PFRole(name: groupID, acl: acl)
+            
+            role.users.add(user)
+            role.saveInBackground(block: { (success, error) in
+                
+                completionHandler(error)
+            })
+
+            
+            
+            /*
             let query = PFRole.query()
             query?.whereKey("name", equalTo: groupID)
             
@@ -70,29 +89,27 @@ class User {
                     return
                 }
                 
-
-                
                 var role = PFRole()
-                
-                
                 
                 if objects != nil && objects!.count > 0 {
                     role = objects![0] as! PFRole
                     
                 } else {
                     let acl = PFACL()
-                    acl.getPublicReadAccess = true
-                    acl.getPublicWriteAccess = false
+                    //acl.getPublicReadAccess = false
+                    //acl.getPublicWriteAccess = false
                     
                     acl.setWriteAccess(true, for: user)
+                    acl.setReadAccess(true, for: user)
                     role = PFRole(name: groupID, acl: PFACL())
                 }
                 
                 role.users.add(user)
                 role.saveInBackground(block: { (success, error) in
+                    
                     completionHandler(error)
                 })
-            })
+            })*/
         }
     }
     

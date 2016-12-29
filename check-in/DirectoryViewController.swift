@@ -22,6 +22,8 @@ class DirectoryViewController: UITableViewController {
     
     /* -------------------------------------------------------- */
     
+    let controller = Controller.sharedInstance
+    
     var members = [Member]()
     
     var membersDictionary : [String:[Member]] = [:]
@@ -124,7 +126,26 @@ class DirectoryViewController: UITableViewController {
                     }
                     }, withProgressBlock: nil)
             }*/
+            
+            let memberToDelete = members[indexPath.row]
+            members.remove(at: indexPath.row)
+            
+            memberToDelete.delete(completionHandler: { (error) in
+                if let error = error {
+                    //error occurred - add back into the list
+                    print(error)
+                    self.members.insert(memberToDelete, at: indexPath.row)
+                    tableView.insertRows(at: [indexPath], with: UITableViewRowAnimation.automatic
+                    )
+                    
+                } else {
+                    //delete successful - UI already updated
+                    //NSLog("deleted response: %@", deletionDictorNil)
+                    tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.right)
+                    
+                }
 
+            })
             
             
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -196,6 +217,19 @@ class DirectoryViewController: UITableViewController {
         
     func loadData(event: Event?) {
     
+        controller.getAllMembers(completionHandler:) { (members_list, error) in
+            if let error = error {
+                print(error)
+                return
+            }
+           
+            self.members = members_list
+            self.sortMembers()
+            self.tableView.reloadData()
+            
+            self.refresh.endRefreshing()
+        }
+        
         /*
         let collection = KCSCollection.init(from: "Members", of: Member.self)
         let store = KCSAppdataStore(collection: collection, options: nil)

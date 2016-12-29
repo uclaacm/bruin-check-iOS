@@ -154,7 +154,7 @@ class AddEventViewController: UITableViewController, UITextFieldDelegate {
     // Save the event
     func addNewEvent(name: String, startDate: NSDate, endDate: NSDate, location: String) {
 
-        let event = Event(name: name, startDate: startDate, endDate: endDate, location: location, attendees: [String]())
+        let event = Event(name: name, startDate: startDate, endDate: endDate, location: location, attendees: [Member]())
         event?.save(completionHandler:) { error in
             // Do something on save sucess
         }

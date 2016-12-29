@@ -179,13 +179,13 @@ class ScannerTableViewController: UITableViewController, UITextFieldDelegate {
     // Adds the attendee to the even (if the attendee is not already added)
     func updateEventWithNewAttendee(m: Member) {
         
-        // Add the member's entityId to the event
+        // Add the member to the event
         if(!(event!.addAttendee(m: m))) { self.saveWheel.stopAnimating(); return }
         
         // Save the event
-        event!.save { error in
+        event!.save(completionHandler: { (error) in
             self.saveWheel.stopAnimating()
-        }
+        })
     }
     
     // Search database for id, reload textfields with info

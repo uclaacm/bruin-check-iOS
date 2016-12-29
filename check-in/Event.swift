@@ -13,15 +13,20 @@ class Event {
     
     var parse_event = PFObject(className: "Event")
     
-    init?(name: String, startDate: NSDate, endDate: NSDate, location: String, attendees: [String]) {
+    init?(name: String, startDate: NSDate, endDate: NSDate, location: String, attendees: [Member]) {
     
         let controller = Controller.sharedInstance
+        
+        var parse_members = [PFObject]()
+        for attendee in attendees {
+            parse_members.append(attendee.parse_member)
+        }
         
         parse_event["name"] = name
         parse_event["startDate"] = startDate as Any
         parse_event["endDate"] = endDate as Any
         parse_event["location"] = location
-        parse_event["attendees"] = attendees
+        parse_event["attendees"] = parse_members
         parse_event["group"] = controller.user.currentGroup
         
         controller.getRole(name: controller.user.currentGroup) { (role, error) in
@@ -31,6 +36,7 @@ class Event {
                 return
             }
             
+            print(role.name)
             let acl = controller.createACLforRole(role: role)
             self.parse_event.acl = acl
             
@@ -75,24 +81,20 @@ class Event {
         get { return parse_event["location"] as! String }
         set(l) { parse_event["location"] = l }
     }
-    var attendees: [String] {
-        get { return parse_event["attendees"] as! [String] }
+    var attendees: [Member] {
+        get { return parse_event["attendees"] as! [Member] }
         set(a) { parse_event["attendees"] = attendees }
     }
     
     func addAttendee(m: Member) -> Bool {
-        if (attendees.index(of: m.oid)) != nil {
-            return false
-        } else {
-            attendees.append(m.oid)
-            return true
-        }
+        var temp = attendees
+        temp.append(m)
+        attendees = temp
+        
+        return true
     }
     
     func removeAttendee(entityId: String) {
-        if let i = attendees.index(of: entityId) {
-            attendees.remove(at: i)
-        }
     }
     
     /*

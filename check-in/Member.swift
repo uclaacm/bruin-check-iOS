@@ -55,6 +55,16 @@ class Member {
         })
     }
     
+    func delete() {
+        parse_member.deleteInBackground(block: nil)
+    }
+    
+    func delete(completionHandler: @escaping (Error?) -> Void) {
+        parse_member.deleteInBackground(block: { (user, error) -> Void in
+            completionHandler(error)
+        })
+    }
+    
     var oid: String {
         return parse_member.objectId!
     }
@@ -93,89 +103,4 @@ class Member {
             events.remove(at: i)
         }
     }
-    
- /*
-    func save(completion: @escaping () -> Void) {
-        let collection = KCSCollection.init(from: "Members", of: Member.self)
-        let store = KCSAppdataStore(collection: collection, options: nil)
-        
-        store!.save(
-            self,
-            withCompletionBlock: { (KCSCompletionBlock) -> Void in
-                if KCSCompletionBlock.1 != nil {
-                    //save failed
-                    //NSLog("Save failed, with error: %@", KCSCompletionBlock.1!)
-                    
-                } else {
-                    //save was successful
-                    completion()
-                    NSLog("Successfully saved member (id='%@').", (KCSCompletionBlock.0?[0] as! NSObject).kinveyObjectId())
-                }
-            },
-            withProgressBlock: nil)
-    }
-    
-    func loadFromID(id: String, groupID: String, completion: @escaping (_ success: Bool) -> Void) {
-        
-        let collection = KCSCollection.init(from: "Members", of: Member.self)
-        let store = KCSAppdataStore(collection: collection, options: nil)
-        
-        var success = false
-        
-        
-        let query = KCSQuery(onField: "groupIdentifier", withExactMatchForValue: groupID as NSObject!)
-        
-        _ = store?.query(withQuery:
-            query, withCompletionBlock: { (member_list, error) -> Void in
-                if let member_list = member_list as? [Member]{
-                    for m in member_list {
-                        if m.id == id {
-                            self.entityId = m.entityId
-                            self.name = m.name
-                            self.email = m.email
-                            self.id = m.id
-                            self.events = m.events
-                            self.groupIdentifier = m.groupIdentifier
-                            self.metadata = m.metadata
-                            success = true
-                        }
-                    }
-                } else {
-                    // Couldn't find the id in the database, begin configuring new member
-                    self.id = id
-                }
-                
-                completion(success)
-            },
-                   withProgressBlock: nil
-        )
-
-    }
-    
-    func addEvent(e: Event) -> Bool {
-        if (events.index(of: e.entityId!)) != nil {
-            return false
-        } else {
-            events.append(e.entityId!)
-            return true
-        }
-    }
-    
-    func removeEvent(entityId: String) {
-        if let i = events.index(of: entityId) {
-            events.remove(at: i)
-        }
-    }
-    
-    override static func kinveyPropertyToCollectionMapping() -> [AnyHashable : Any]! {
-        return [
-            "entityId" : KCSEntityKeyId, //the required _id field
-            "name" : "name",
-            "email": "email",
-            "id" : "id",
-            "events" : "events",
-            "groupIdentifier" : "groupIdentifier",
-            "metadata" : KCSEntityKeyMetadata //optional _metadata field
-        ]
-    }*/
 }

@@ -34,14 +34,19 @@ class DashboardViewController: UIViewController, UITableViewDataSource, UITableV
         
         
         let query = PFRole.query()
-        query?.whereKey("name", equalTo: "acm")
+        //query?.whereKey("name", equalTo: "ucla-acm")
         query?.whereKey("users", equalTo: PFUser.current()!)
         query?.findObjectsInBackground(block: { (objects, error) in
             
             if let error = error {
                 print(error)
             } else {
-                print("user has role acm")
+                
+                for object in objects! as! [PFRole] {
+                    print(object.name)
+                }
+                
+                
             }
         })
         
@@ -172,9 +177,10 @@ class DashboardViewController: UIViewController, UITableViewDataSource, UITableV
 
     func loadData() {
         if let type = type {
+            print(type)
             if type == "events" {
                 
-                // find events
+                // Find events
                 controller.getAllEvents { (events_list, error) in
                     
                         // Sucessfully got events list
@@ -191,8 +197,6 @@ class DashboardViewController: UIViewController, UITableViewDataSource, UITableV
                     
                     // Done interacting w/ the interwebs...we can turn off the activity wheel
                     self.refresh.endRefreshing()
-                }
-
                 
             } else if type == "members" {
                 
@@ -215,6 +219,7 @@ class DashboardViewController: UIViewController, UITableViewDataSource, UITableV
                 self.refresh.endRefreshing()
             }
         }
+    }
     
     /*
      override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

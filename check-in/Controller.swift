@@ -42,7 +42,7 @@ class Controller {
     }
     
     func getAllMembers(completionHandler: @escaping (([Member], Error?) -> Void)) {
-        let query = PFQuery(className: "Event")
+        let query = PFQuery(className: "Member")
         query.findObjectsInBackground { (objects: [PFObject]?, error) in
             var members = [Member]()
             if let objects = objects {
