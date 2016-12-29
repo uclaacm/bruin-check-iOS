@@ -34,7 +34,7 @@ class ScannerTableViewController: UITableViewController, UITextFieldDelegate {
     var idIndexPath : IndexPath?
     var buttonIndexPath : IndexPath?
     
-    // Member var that we will submit to the backend!ß
+    // Member var that we will submit to the backend!
     var member: Member?
     
     // Event var that we will update w/ our new attendee
@@ -198,6 +198,7 @@ class ScannerTableViewController: UITableViewController, UITextFieldDelegate {
             } else {
                 self.currentID = barcode
                 self.buttonText = NEW_MEMBER_SAVE_TEXT
+                self.member = nil
                 self.loadTextFields(m: self.member)
             }
             

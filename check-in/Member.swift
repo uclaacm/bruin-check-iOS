@@ -37,8 +37,28 @@ class Member {
     }
     
     init?(id: String, completion: @escaping (Bool) -> Void) {
-        // TODO
-        completion(true)
+        let query = PFQuery(className: "Member")
+        query.whereKey("id", equalTo: id)
+        
+        query.findObjectsInBackground { (objects: [PFObject]?, error) in
+            
+            if error != nil {
+                completion(false)
+                //return nil
+            }
+            
+            if objects?.count == 0 {
+                completion(false)
+                //return nil
+            }
+            
+            let member = (objects?[0])! as PFObject
+            //self.init(object: member)
+            self.parse_member = member
+            
+            completion(true)
+        }
+
     }
     
     init(object: PFObject) {

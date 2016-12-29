@@ -55,7 +55,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         
         // Create a nilable NSError to hand off to the next method.
         // Make sure to use the "var" keyword and not "let"
-        let _ : NSError? = nil
+        let error: NSError? = nil
         
         let input : AVCaptureDeviceInput? = try? AVCaptureDeviceInput.init(device: device)
         
@@ -65,7 +65,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         }
         else {
             // This is fine for a demo, do something real with this in your app. :)
-            //print(error)
+            print(error ?? "error")
         }
         
         let output = AVCaptureMetadataOutput()
@@ -99,7 +99,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     // Called when known barcode is detected
-    private func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, from connection: AVCaptureConnection!) {
+    // private func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, from connection: AVCaptureConnection!)
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
         
         // Begin animating the wheels to avoid UI lag
         wheelsAreAnimating(b: true)
@@ -109,24 +110,22 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         var detectionString : String!
         
         let barCodeTypes = [AVMetadataObjectTypeUPCECode,
-                            AVMetadataObjectTypeCode39Code,
-                            AVMetadataObjectTypeCode39Mod43Code,
-                            AVMetadataObjectTypeEAN13Code,
-                            AVMetadataObjectTypeEAN8Code,
-                            AVMetadataObjectTypeCode93Code,
-                            AVMetadataObjectTypeCode128Code,
-                            AVMetadataObjectTypePDF417Code,
-                            AVMetadataObjectTypeQRCode,
-                            AVMetadataObjectTypeAztecCode
-        ]
-        
+                                  AVMetadataObjectTypeCode39Code,
+                                  AVMetadataObjectTypeCode39Mod43Code,
+                                  AVMetadataObjectTypeCode93Code,
+                                  AVMetadataObjectTypeCode128Code,
+                                  AVMetadataObjectTypeEAN8Code,
+                                  AVMetadataObjectTypeEAN13Code,
+                                  AVMetadataObjectTypeAztecCode,
+                                  AVMetadataObjectTypePDF417Code,
+                                  AVMetadataObjectTypeQRCode]
         
         // The scanner is capable of capturing multiple 2-dimensional barcodes in one scan.
         for metadata in metadataObjects {
             
             for barcodeType in barCodeTypes {
                 
-                if metadata.type == barcodeType {
+                if (metadata as AnyObject).type == barcodeType {
                     barCodeObject = self.previewLayer.transformedMetadataObject(for: metadata as! AVMetadataMachineReadableCodeObject)
                     
                     let bounds = CGRect(x: barCodeObject.bounds.minX, y: barCodeObject.bounds.minY + view.frame.height / 2, width: barCodeObject.bounds.width, height: barCodeObject.bounds.height)

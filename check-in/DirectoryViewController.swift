@@ -141,8 +141,7 @@ class DirectoryViewController: UITableViewController {
                 } else {
                     //delete successful - UI already updated
                     //NSLog("deleted response: %@", deletionDictorNil)
-                    tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.right)
-                    
+                    tableView.reloadData()
                 }
 
             })
