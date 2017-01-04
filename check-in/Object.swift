@@ -11,15 +11,16 @@ import Parse
 
 class Object {
     
+    // The parse object we are creating a wrapper for
     var parse_object : PFObject
     
     init(className: String) {
         parse_object = PFObject(className: className)
     }
     
-    var oid: String {
-        return parse_object.objectId!
-    }
+    var oid: String { return parse_object.objectId! }
+    
+    /* ---- UNIVERAL FUNCTIONS -------------------------------------- */
     
     func save() {
         parse_object.saveInBackground(block: nil)
@@ -41,5 +42,5 @@ class Object {
         })
     }
     
-    
+    /* -------------------------------------------------------------- */
 }

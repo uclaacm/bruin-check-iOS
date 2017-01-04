@@ -40,13 +40,21 @@ class EventsViewController: UITableViewController {
         
         // Configure the activity wheel
         tableView.refreshControl = self.refresh
-        refresh.addTarget(self, action: #selector(loadData), for: UIControlEvents.valueChanged)
+        refresh.addTarget(self, action: #selector(loadData), for: .valueChanged)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         // Update the view whenever it has appeared
-        // TODO: find a better way to do this
-        refresh.beginRefreshingManually()
+        // TODO: find a better way to do this ??!?!?
+        self.refreshControl?.beginRefreshing()
+        
+        if fabs(self.tableView.contentOffset.y) < CGFloat(FLT_EPSILON) {
+            UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState, animations: {
+                self.tableView.contentOffset = CGPoint(x: 0, y: -self.refreshControl!.frame.size.height);
+            }, completion: nil)
+        }
+        
+        refresh.sendActions(for: .valueChanged)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,6 +77,7 @@ class EventsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source

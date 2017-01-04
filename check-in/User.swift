@@ -50,9 +50,6 @@ class User {
         user["groups"] = groups
         user["currentGroup"] = groupID
         
-        // other fields can be set just like with PFObject
-        //user["phone"] = "415-392-0202"
-        
         user.signUpInBackground { (succeeded: Bool, error: Error?) -> Void in
            
             if let error = error {

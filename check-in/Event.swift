@@ -69,42 +69,21 @@ class Event : Object {
     
     var attendee_count: Int {
         get { return parse_object["attendee_count"] as! Int }
+    }
+    
+    private var _attendee_count: Int {
+        get { return parse_object["attendee_count"] as! Int }
         set(c) { parse_object["attendee_count"] = c }
     }
     
     /* ------------------------------------------------------ */
-    
-    func addAttendee(m: Member) -> Bool {
-        /*
-        var temp = attendees
-        temp.append(m)
-        attendees = temp
-        */
-        
-        /*
-        let relation = self.parse_event.relation(forKey: "Members")
-        relation.add(m.parse_member)
-        */
- 
-        let join = PFObject(className: "Join")
-        
-        join.setObject(PFUser.current()!, forKey: "user")
-        join.setObject(parse_object, forKey: "event")
-        join.setObject(m.parse_object, forKey: "member")
-        join.setObject(Date.init(), forKey: "date")
-        join.saveInBackground()
-        
-        attendee_count += 1
-        save()
-        
-        return true
-    }
     
     func getAttendees(completionHandler: @escaping ([Member], Error?) -> Void) {
         
         let query = PFQuery(className: "Join")
         query.whereKey("event", equalTo: parse_object)
     
+        // Finds all members who attended a specific event
         query.findObjectsInBackground { (objects, error) in
             var members = [Member]()
             
@@ -113,7 +92,7 @@ class Event : Object {
                 return
             }
 
-            // Loop through the returned objects and fetch them in the background if needed
+            // Loop through the returned objects and fetch them in the background if needed, the append them to the Members array
             for i in 0..<objects!.count {
                 let member = objects![i]["member"] as! PFObject
                 
@@ -134,6 +113,24 @@ class Event : Object {
         }
     }
     
+    // Adds an entry in the join table for the new attendee
+    func addAttendee(m: Member) -> Bool {
+        let join = PFObject(className: "Join")
+        
+        join.setObject(PFUser.current()!, forKey: "user")
+        join.setObject(parse_object, forKey: "event")
+        join.setObject(m.parse_object, forKey: "member")
+        join.setObject(Date.init(), forKey: "date")
+        join.saveInBackground()
+        
+        // Increment the attendee count that is stored in the event object
+        _attendee_count += 1
+        //save()
+        
+        return true
+    }
+    
+    // Removes an entry in the join table that connects a member to a specific event
     func removeAttendee(member: Member) {
         let query = PFQuery(className: "Join")
         query.whereKey("event", equalTo: parse_object)
@@ -148,6 +145,9 @@ class Event : Object {
             
             for object in objects! {
                 object.deleteInBackground()
+                
+                // Decrement the count by one
+                self._attendee_count -= 1
             }
         }
     }
