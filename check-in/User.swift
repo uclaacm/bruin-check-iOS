@@ -11,10 +11,10 @@ import Parse
 
 class User {
     
-    /* -------------------------------------------------------- */
+    /* -------------------GETTERS & SETTERS-------------------- */
     
     //let parse_user = PFUser()
-    
+
     var uid : String?
     var name: String? {
         get { return PFUser.current()?.username }
@@ -75,46 +75,12 @@ class User {
                 
                 completionHandler(error)
             })
-
-            
-            
-            /*
-            let query = PFRole.query()
-            query?.whereKey("name", equalTo: groupID)
-            
-            query?.findObjectsInBackground(block: { (objects, error) in
-                
-                if let error = error {
-                    completionHandler(error)
-                    return
-                }
-                
-                var role = PFRole()
-                
-                if objects != nil && objects!.count > 0 {
-                    role = objects![0] as! PFRole
-                    
-                } else {
-                    let acl = PFACL()
-                    //acl.getPublicReadAccess = false
-                    //acl.getPublicWriteAccess = false
-                    
-                    acl.setWriteAccess(true, for: user)
-                    acl.setReadAccess(true, for: user)
-                    role = PFRole(name: groupID, acl: PFACL())
-                }
-                
-                role.users.add(user)
-                role.saveInBackground(block: { (success, error) in
-                    
-                    completionHandler(error)
-                })
-            })*/
         }
     }
     
     func createAndSaveUser(email: String, password: String, completionHandler: @escaping ( (Error?) -> Void ) ) {
-            }
+    
+    }
     
     func login(email: String, password: String, completionHandler: @escaping ( (Error?) -> Void) ) {
         PFUser.logInWithUsername(inBackground: email, password: password) { (user: PFUser?, error: Error?) -> Void in

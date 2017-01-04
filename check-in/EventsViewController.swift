@@ -61,7 +61,7 @@ class EventsViewController: UITableViewController {
         event = events[indexPath.row]
         cell.accessoryType = .disclosureIndicator
         cell.textLabel?.text = event.name
-        cell.detailTextLabel?.text = "\(event.attendees.count) " + (event.attendees.count == 1 ? "attendee" : "attendees")
+        cell.detailTextLabel?.text = "\(event.attendee_count) " + (event.attendee_count == 1 ? "attendee" : "attendees")
         
         return cell
     }
@@ -73,28 +73,24 @@ class EventsViewController: UITableViewController {
         if editingStyle == .delete {
             // Delete the row from the data source
             
-            /* let collection = KCSCollection.init(from: "Events", of: Event.self)
-            let store = KCSAppdataStore(collection: collection, options: nil)
-            
             let eventToDelete = events[indexPath.row]
             events.remove(at: indexPath.row)
-            _ = store?.remove(eventToDelete, withDeletionBlock: { (deletionDictorNil, error) in
-                if error != nil {
+            
+            eventToDelete.delete(completionHandler: { (error) in
+                if let error = error {
                     //error occurred - add back into the list
                     self.events.insert(eventToDelete, at: indexPath.row)
-                    tableView.insertRows(
-                        at: [indexPath],
-                        with: UITableViewRowAnimation.automatic
-                    )
-                    
-                } else {
-                    //delete successful - UI already updated
+                    tableView.insertRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+
+                    print(error)
+                    return
                 }
-            }, withProgressBlock: nil)
-        
-        
+                
+                
+            })
+            
             tableView.deleteRows(at: [indexPath], with: .fade)
-             */
+            
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
@@ -117,28 +113,11 @@ class EventsViewController: UITableViewController {
     }
     
     func loadData() {
-        /*
-        let collection = KCSCollection.init(from: "Events", of: Event.self)
-        let store = KCSAppdataStore(collection: collection, options: nil)
-        
-        let query = KCSQuery(onField: "groupIdentifier", withExactMatchForValue: KCSUser.active().getValueForAttribute("groupIdentifier") as! String as NSObject!)
-        
-        _ = store?.query(withQuery:
-            query, withCompletionBlock: { (events_list, error) -> Void in
-                if let events_list = events_list {
-                    self.events = events_list as! [Event]
-                    self.events.sort(by: { (a, b) -> Bool in
-                        return (a.startDate as NSDate!).timeIntervalSinceNow > (b.startDate as NSDate!).timeIntervalSinceNow
-                    })
-                    self.tableView.reloadData()
-                }
-                self.refresh.endRefreshing()
-            },
-                   withProgressBlock: nil
-        )*/
-        
+        // Load the all the group's events from database
         controller.getAllEvents { (events_list, error) in
             self.events = events_list
+            
+            // sort the events based on their start date ( newest events at top )
             self.events.sort(by: { (a, b) -> Bool in
                 return (a.startDate as NSDate!).timeIntervalSinceNow > (b.startDate as NSDate!).timeIntervalSinceNow
             })

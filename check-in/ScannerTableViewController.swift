@@ -163,7 +163,13 @@ class ScannerTableViewController: UITableViewController, UITextFieldDelegate {
         self.saveWheel.startAnimating()
         
         // Update member var w/ user inputted info
-        member = Member(name: nameField.text!, email: emailField.text!, id: idField.text!, events: [String]())
+        if let member = member {
+            member.name = nameField.text!
+            member.email = emailField.text!
+            member.id = idField.text!
+        } else {
+            member = Member(name: nameField.text!, email: emailField.text!, id: idField.text!, events: [String]())
+        }
         _ = member?.addEvent(e: event!)
         
         // Save changes

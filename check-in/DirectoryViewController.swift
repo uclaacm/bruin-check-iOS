@@ -98,35 +98,6 @@ class DirectoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            /*
-            let collection = KCSCollection.init(from: "Members", of: Member.self)
-            let store = KCSAppdataStore(collection: collection, options: nil)
-            
-            let memberToDelete = members[indexPath.row]
-            members.remove(at: indexPath.row)
-            
-            if let event = event {
-                event.removeAttendee(entityId: memberToDelete.entityId!)
-                event.save {
-                    self.refresh.beginRefreshingManually()
-                }
-            } else {
-                _ = store?.remove(memberToDelete, withDeletionBlock: { (deletionDictorNil, error) in
-                    if error != nil {
-                        //error occurred - add back into the list
-                        self.members.insert(memberToDelete, at: indexPath.row)
-                        tableView.insertRows(
-                            at: [indexPath],
-                            with: UITableViewRowAnimation.automatic
-                        )
-                        //NSLog("Delete failed, with error: %@", error)
-                    } else {
-                        //delete successful - UI already updated
-                        //NSLog("deleted response: %@", deletionDictorNil)
-                    }
-                    }, withProgressBlock: nil)
-            }*/
-            
             let memberToDelete = members[indexPath.row]
             members.remove(at: indexPath.row)
             
@@ -216,12 +187,12 @@ class DirectoryViewController: UITableViewController {
         
     func loadData(event: Event?) {
     
-        controller.getAllMembers(completionHandler:) { (members_list, error) in
+        let block : ([Member], Error?) -> Void = { (members_list, error) in
             if let error = error {
                 print(error)
                 return
             }
-           
+            
             self.members = members_list
             self.sortMembers()
             self.tableView.reloadData()
@@ -229,38 +200,16 @@ class DirectoryViewController: UITableViewController {
             self.refresh.endRefreshing()
         }
         
-        /*
-        let collection = KCSCollection.init(from: "Members", of: Member.self)
-        let store = KCSAppdataStore(collection: collection, options: nil)
         
         if let event = event {
-            _ = store?.loadObject(withID: event.attendees, withCompletionBlock: { (members_list, error) in
-                if let members_list = members_list {
-                    self.members = members_list as! [Member]
-                    self.sortMembers()
-                    self.tableView.reloadData()
-                }
-                
-                self.refresh.endRefreshing()
-                }, withProgressBlock: nil)
-        } else {
-            let query = KCSQuery(onField: "groupIdentifier", withExactMatchForValue: KCSUser.active().getValueForAttribute("groupIdentifier") as! String as NSObject!)
-            
-            _ = store?.query(withQuery:
-                query, withCompletionBlock: { (members_list, error) -> Void in
-                    if let members_list = members_list {
-                        self.members = members_list as! [Member]
-                        self.sortMembers()
-                        self.tableView.reloadData()
-                    }
-                    
-                    self.refresh.endRefreshing()
-                },
-                       withProgressBlock: nil
-            )
+            event.getAttendees(completionHandler:) { (members_list, error) in
+                block(members_list, error)
+            }
 
-            
-        }*/
-    
+        } else {
+            controller.getAllMembers(completionHandler:) { (members_list, error) in
+                block(members_list, error)
+            }
+        }
     }
 }

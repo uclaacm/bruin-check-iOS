@@ -44,6 +44,7 @@
 		C97D4D851D603AB100204571 /* ScannerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D4D841D603AB100204571 /* ScannerTableViewController.swift */; };
 		C97D4D891D6159B600204571 /* DirectoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D4D881D6159B600204571 /* DirectoryViewController.swift */; };
 		C98B32221D68F26C00143BE5 /* MemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98B32211D68F26C00143BE5 /* MemberViewController.swift */; };
+		C99942601E1C60B4009E8C0E /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = C999425F1E1C60B4009E8C0E /* Object.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,7 @@
 		C97D4D841D603AB100204571 /* ScannerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerTableViewController.swift; sourceTree = "<group>"; };
 		C97D4D881D6159B600204571 /* DirectoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectoryViewController.swift; sourceTree = "<group>"; };
 		C98B32211D68F26C00143BE5 /* MemberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberViewController.swift; sourceTree = "<group>"; };
+		C999425F1E1C60B4009E8C0E /* Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 		DA66A4E1E1E5DF35B7B7C87A /* Pods-check-in.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-check-in.debug.xcconfig"; path = "Pods/Target Support Files/Pods-check-in/Pods-check-in.debug.xcconfig"; sourceTree = "<group>"; };
 		EE428BBEF5628CA19D76493D /* Pods_check_in.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_check_in.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -144,6 +146,7 @@
 		C904DEF51D67520600BAF1F4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C999425F1E1C60B4009E8C0E /* Object.swift */,
 				C936AD421D61807800602F5A /* Event.swift */,
 				C936AD431D61807800602F5A /* Member.swift */,
 				C904DEF71D6764B500BAF1F4 /* User.swift */,
@@ -380,6 +383,7 @@
 				C952DCD11D637552005D1750 /* TabBarViewController.swift in Sources */,
 				C952DCD71D63C01B005D1750 /* DashboardPageViewController.swift in Sources */,
 				C952DCC91D636D0A005D1750 /* SpringValueAnimation.swift in Sources */,
+				C99942601E1C60B4009E8C0E /* Object.swift in Sources */,
 				C91B0F9B1D5F8CAA00E80A46 /* AddEventViewController.swift in Sources */,
 				C952DCC71D636D0A005D1750 /* MotionAnimator.swift in Sources */,
 				C952DCCD1D636DF5005D1750 /* DashboardViewController.swift in Sources */,

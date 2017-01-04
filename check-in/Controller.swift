@@ -27,6 +27,7 @@ class Controller {
         return acl
     }
     
+    // Get all events
     func getAllEvents(completionHandler: @escaping (([Event], Error?) -> Void)) {
         let query = PFQuery(className: "Event")
         query.findObjectsInBackground { (objects: [PFObject]?, error) in
@@ -41,6 +42,7 @@ class Controller {
         }
     }
     
+    // Get all members
     func getAllMembers(completionHandler: @escaping (([Member], Error?) -> Void)) {
         let query = PFQuery(className: "Member")
         query.findObjectsInBackground { (objects: [PFObject]?, error) in
@@ -55,6 +57,7 @@ class Controller {
         }
     }
     
+    // Get the current role
     func getRole(name: String, completionHandler: @escaping ((PFRole, Error?) -> Void)) {
         let query = PFRole.query()
         query?.whereKey("name", equalTo: name)

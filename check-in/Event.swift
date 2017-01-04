@@ -9,26 +9,22 @@
 import Foundation
 import Parse
 
-class Event {
+class Event : Object {
     
-    var parse_event = PFObject(className: "Event")
-    
-    init?(name: String, startDate: NSDate, endDate: NSDate, location: String, attendees: [Member]) {
-    
+    init?(name: String, startDate: NSDate, endDate: NSDate, location: String) {
+        super.init(className: "Event")
+        
         let controller = Controller.sharedInstance
         
-        var parse_members = [PFObject]()
-        for attendee in attendees {
-            parse_members.append(attendee.parse_member)
-        }
+        // Set the fields of the PFObject
+        parse_object["name"] = name
+        parse_object["startDate"] = startDate as Any
+        parse_object["endDate"] = endDate as Any
+        parse_object["location"] = location
+        parse_object["attendee_count"] = 0
+        parse_object["group"] = controller.user.currentGroup
         
-        parse_event["name"] = name
-        parse_event["startDate"] = startDate as Any
-        parse_event["endDate"] = endDate as Any
-        parse_event["location"] = location
-        parse_event["attendees"] = parse_members
-        parse_event["group"] = controller.user.currentGroup
-        
+        // Get the user's current role, based on their current group
         controller.getRole(name: controller.user.currentGroup) { (role, error) in
             
             if let error = error {
@@ -38,182 +34,121 @@ class Event {
             
             print(role.name)
             let acl = controller.createACLforRole(role: role)
-            self.parse_event.acl = acl
+            self.parse_object.acl = acl
             
             self.save()
         }
     }
     
-    func save() {
-        parse_event.saveInBackground(block: nil)
-    }
-    
-    func save(completionHandler: @escaping (Error?) -> Void) {
-        parse_event.saveInBackground(block: { (user, error) -> Void in
-            completionHandler(error)
-        })
-    }
-    
-    var oid: String {
-        return parse_event.objectId!
-    }
-    
     init(object: PFObject) {
-        parse_event = object
+        super.init(className: "Event")
+        parse_object = object
     }
+    
+    /* ------------------GETTERS & SETTERS------------------- */
     
     var name: String {
-        get { return parse_event["name"] as! String }
-        set(n) { parse_event["name"] = n }
+        get { return parse_object["name"] as! String }
+        set(n) { parse_object["name"] = n }
     }
     
     var startDate: NSDate {
-        get { return parse_event["startDate"] as! NSDate }
-        set(s) { parse_event["startDate"] = s }
+        get { return parse_object["startDate"] as! NSDate }
+        set(s) { parse_object["startDate"] = s }
     }
     
     var endDate: NSDate {
-        get { return parse_event["endDate"] as! NSDate }
-        set(e) { parse_event["endDate"] = e }
+        get { return parse_object["endDate"] as! NSDate }
+        set(e) { parse_object["endDate"] = e }
     }
     
     var location: String {
-        get { return parse_event["location"] as! String }
-        set(l) { parse_event["location"] = l }
-    }
-    var attendees: [Member] {
-        get { return parse_event["attendees"] as! [Member] }
-        set(a) { parse_event["attendees"] = attendees }
+        get { return parse_object["location"] as! String }
+        set(l) { parse_object["location"] = l }
     }
     
+    var attendee_count: Int {
+        get { return parse_object["attendee_count"] as! Int }
+        set(c) { parse_object["attendee_count"] = c }
+    }
+    
+    /* ------------------------------------------------------ */
+    
     func addAttendee(m: Member) -> Bool {
+        /*
         var temp = attendees
         temp.append(m)
         attendees = temp
+        */
+        
+        /*
+        let relation = self.parse_event.relation(forKey: "Members")
+        relation.add(m.parse_member)
+        */
+ 
+        let join = PFObject(className: "Join")
+        
+        join.setObject(PFUser.current()!, forKey: "user")
+        join.setObject(parse_object, forKey: "event")
+        join.setObject(m.parse_object, forKey: "member")
+        join.setObject(Date.init(), forKey: "date")
+        join.saveInBackground()
+        
+        attendee_count += 1
+        save()
         
         return true
     }
     
-    func removeAttendee(entityId: String) {
-    }
-    
-    /*
-    /* -------------------------------------------------------- */
-    
-    private(set) var entityId: String? //Kinvey entity _id
-    private(set) var name: String?
-    private(set) var startDate: NSDate?
-    private(set) var endDate: NSDate?
-    private(set) var location: String?
-    private(set) var attendees: [String]
-    private(set) var groupIdentifier: String?
-    private(set) var metadata: KCSMetadata? //Kinvey metadata, optional
-    
-    /* -------------------------------------------------------- */
-    
-    override init() {
-        attendees = []
-        super.init()
-    }
-    
-    // Set-ers
-    
-    func setEntityId(e: String) { entityId = e }
-    func setName(n: String) { name = n }
-    func setStartDate(s: NSDate) { startDate = s }
-    func setEndDate(e: NSDate) { endDate = e }
-    func setLocation(l: String) { location = l }
-    func setAttendees(a: [String]) { attendees = a }
-    func setGroupIdentifier(g: String) { groupIdentifier = g }
-    func setMetadata(m: KCSMetadata) { metadata = m }
-    func setAll(_entityId: String, _name: String, _startDate: NSDate, _endDate: NSDate, _location: String, _attendees: [String], _groupIdentifer: String, _metadata: KCSMetadata) {
-        entityId = _entityId
-        name = _name
-        startDate = _startDate
-        endDate = _endDate
-        location = _location
-        groupIdentifier = _groupIdentifer
-        metadata = _metadata
-    }
-    
-    /* -------------------------------------------------------- */
-    
-    public func load(entityId: String) {
+    func getAttendees(completionHandler: @escaping ([Member], Error?) -> Void) {
         
-        let collection = KCSCollection.init(from: "Events", of: Event.self)
-        let store = KCSAppdataStore(collection: collection, options: nil)
-        
-        let query = KCSQuery(onField: "entityId", withExactMatchForValue: entityId as NSObject!)
-        
-        _ = store?.query(withQuery:
-            query, withCompletionBlock: { (event, error) -> Void in
-                if event?[0] != nil {
-                    let e = (event?[0] as! Event)
-                    self.entityId = e.entityId
-                    self.name = e.name
-                    self.startDate = e.startDate
-                    self.endDate = e.endDate
-                    self.location = e.location
-                    self.attendees = e.attendees
-                    self.groupIdentifier = e.groupIdentifier
-                    self.metadata = e.metadata
-                    //self.isEmpty = false
-                } else {
-                    NSLog("Error constructing event from entityId")
-                }
-            },
-                   withProgressBlock: nil
-        )
-    }
+        let query = PFQuery(className: "Join")
+        query.whereKey("event", equalTo: parse_object)
     
-    public func save(completion: @escaping () -> Void) {
-        let collection = KCSCollection.init(from: "Events", of: Event.self)
-        let store = KCSAppdataStore(collection: collection, options: nil)
-        
-        store!.save(
-            self,
-            withCompletionBlock: { (KCSCompletionBlock) -> Void in
-                if KCSCompletionBlock.1 != nil {
-                    //save failed
-                    //NSLog("Save failed, with error: %@", KCSCompletionBlock.1!)
-                } else {
-                    //save was successful
-                    completion()
-                    NSLog("Successfully saved event (id='%@').", (KCSCompletionBlock.0?[0] as! NSObject).kinveyObjectId())
-                }
-            },
-            withProgressBlock: nil
-        )
-    }
+        query.findObjectsInBackground { (objects, error) in
+            var members = [Member]()
+            
+            if let error = error {
+                completionHandler(members, error)
+                return
+            }
 
-    
-    func addAttendee(m: Member) -> Bool {
-        if (attendees.index(of: m.entityId!)) != nil {
-            return false
-        } else {
-            attendees.append(m.entityId!)
-            return true
+            // Loop through the returned objects and fetch them in the background if needed
+            for i in 0..<objects!.count {
+                let member = objects![i]["member"] as! PFObject
+                
+                member.fetchIfNeededInBackground(block: { (object, error) in
+                    
+                    if let error = error {
+                        completionHandler(members, error)
+                        return
+                    }
+                    
+                    members.append(Member(object: object!))
+                    
+                    if i == objects!.count-1 {
+                        completionHandler(members, error)
+                    }
+                })
+            }
         }
     }
     
-    func removeAttendee(entityId: String) {
-        if let i = attendees.index(of: entityId) {
-            attendees.remove(at: i)
+    func removeAttendee(member: Member) {
+        let query = PFQuery(className: "Join")
+        query.whereKey("event", equalTo: parse_object)
+        query.whereKey("member", equalTo: member)
+        
+        query.findObjectsInBackground { (objects, error) in
+            
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            for object in objects! {
+                object.deleteInBackground()
+            }
         }
     }
-    
-    override static func kinveyPropertyToCollectionMapping() -> [AnyHashable : Any]! {
-        return [
-            "entityId" : KCSEntityKeyId, //the required _id field
-            "name" : "name",
-            "startDate" : "startDate",
-            "endDate" : "endDate",
-            "location" : "location",
-            "attendees" : "attendees",
-            "groupIdentifier" : "groupIdentifier",
-            "metadata" : KCSEntityKeyMetadata //optional _metadata field
-        ]
-
-    }
- */
 }

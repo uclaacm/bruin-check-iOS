@@ -9,18 +9,18 @@
 import Foundation
 import Parse
 
-class Member {
-    
-    var parse_member = PFObject(className: "Member")
+class Member : Object {
     
     init?(name: String, email: String, id: String, events: [String]) {
+        super.init(className: "Member")
+        
         let controller = Controller.sharedInstance
         
-        parse_member["name"] = name
-        parse_member["email"] = email
-        parse_member["id"] = id
-        parse_member["events"] = events
-        parse_member["group"] = controller.user.currentGroup
+        parse_object["name"] = name
+        parse_object["email"] = email
+        parse_object["id"] = id
+        parse_object["events"] = events
+        parse_object["group"] = controller.user.currentGroup
         
         controller.getRole(name: controller.user.currentGroup) { (role, error) in
             
@@ -30,13 +30,14 @@ class Member {
             }
             
             let acl = controller.createACLforRole(role: role)
-            self.parse_member.acl = acl
+            self.parse_object.acl = acl
             
             self.save()
         }
     }
     
     init?(id: String, completion: @escaping (Bool) -> Void) {
+        super.init(className: "Member")
         let query = PFQuery(className: "Member")
         query.whereKey("id", equalTo: id)
         
@@ -54,7 +55,7 @@ class Member {
             
             let member = (objects?[0])! as PFObject
             //self.init(object: member)
-            self.parse_member = member
+            self.parse_object = member
             
             completion(true)
         }
@@ -62,52 +63,35 @@ class Member {
     }
     
     init(object: PFObject) {
-        parse_member = object
+        super.init(className: "Member")
+        parse_object = object
     }
     
-    func save() {
-        parse_member.saveInBackground(block: nil)
-    }
-    
-    func save(completionHandler: @escaping (Error?) -> Void) {
-        parse_member.saveInBackground(block: { (user, error) -> Void in
-            completionHandler(error)
-        })
-    }
-    
-    func delete() {
-        parse_member.deleteInBackground(block: nil)
-    }
-    
-    func delete(completionHandler: @escaping (Error?) -> Void) {
-        parse_member.deleteInBackground(block: { (user, error) -> Void in
-            completionHandler(error)
-        })
-    }
-    
-    var oid: String {
-        return parse_member.objectId!
-    }
+    /* ------------------GETTERS & SETTERS------------------- */
     
     var name: String {
-        get { return parse_member["name"] as! String }
-        set(n) { parse_member["name"] = n }
+        get { return parse_object["name"] as! String }
+        set(n) { parse_object["name"] = n }
     }
     
     var email: String {
-        get { return parse_member["email"] as! String }
-        set(e) { parse_member["email"] = e }
+        get { return parse_object["email"] as! String }
+        set(e) { parse_object["email"] = e }
     }
     
     var id: String {
-        get { return parse_member["id"] as! String }
-        set(i) { parse_member["id"] = i }
+        get { return parse_object["id"] as! String }
+        set(i) { parse_object["id"] = i }
     }
     
     var events: [String] {
-        get { return parse_member["events"] as! [String] }
-        set(e) { parse_member["evetns"] = e }
+        get { return parse_object["events"] as! [String] }
+        set(e) { parse_object["evetns"] = e }
     }
+    
+    /* ----------------------------------------------------- */
+    
+
     
     func addEvent(e: Event) -> Bool {
         if (events.index(of: e.oid)) != nil {

@@ -156,8 +156,8 @@ class DashboardViewController: UIViewController, UITableViewDataSource, UITableV
                 let event = events[index]
                 cell.title.text = event.name
                 cell.subtitle.text = event.location
-                cell.countLabel.text = "\(event.attendees.count)"
-                cell.countType.text = event.attendees.count == 1 ? "attendee" : "attendees"
+                cell.countLabel.text = "\(event.attendee_count)"
+                cell.countType.text = event.attendee_count == 1 ? "attendee" : "attendees"
             } else {
                 var index = indexPath.row
                 
@@ -188,7 +188,7 @@ class DashboardViewController: UIViewController, UITableViewDataSource, UITableV
                         
                         // Sort the events array alphbetically
                         self.events.sort(by: { (a, b) -> Bool in
-                            return a.attendees.count > b.attendees.count
+                            return a.attendee_count > b.attendee_count
                         })
                         
                         // Reload with new data
