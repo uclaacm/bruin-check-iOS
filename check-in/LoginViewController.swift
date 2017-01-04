@@ -42,7 +42,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIViewControll
         passwordField.delegate = self
         
         // Make the text fields look pretty
-        setUpTextField(imageNamed: "user.png", placeholder: "Username", textfield: emailField)
+        setUpTextField(imageNamed: "email.png", placeholder: "Email", textfield: emailField)
         setUpTextField(imageNamed: "lock.png", placeholder: "Password", textfield: passwordField)
         
         emailField.rightViewMode = .always

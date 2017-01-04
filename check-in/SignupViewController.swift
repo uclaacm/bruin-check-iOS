@@ -21,7 +21,7 @@ class SignupViewController: ElasticModalViewController, UITextFieldDelegate {
     let groupIdWheel = UIActivityIndicatorView()
 
     @IBOutlet weak var logo: UIImageView!
-    @IBOutlet weak var usernameField: UITextField!
+    @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var groupIdField: UITextField!
@@ -35,24 +35,24 @@ class SignupViewController: ElasticModalViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         // Create target to be called when the text fields are changed (to determine if the input is valid)
-        usernameField.addTarget(self, action: #selector(textFieldDidChange), for: UIControlEvents.editingChanged)
+        nameField.addTarget(self, action: #selector(textFieldDidChange), for: UIControlEvents.editingChanged)
         emailField.addTarget(self, action: #selector(textFieldDidChange), for: UIControlEvents.editingChanged)
         passwordField.addTarget(self, action: #selector(textFieldDidChange), for: UIControlEvents.editingChanged)
         groupIdField.addTarget(self, action: #selector(textFieldDidChange), for: UIControlEvents.editingChanged)
         
-        usernameField.delegate = self
+        nameField.delegate = self
         emailField.delegate = self
         passwordField.delegate = self
         groupIdField.delegate = self
         
         // Make the textfields look pretty
-        setUpTextField(imageNamed: "user.png", placeholder: "Username", textfield: usernameField)
+        setUpTextField(imageNamed: "user.png", placeholder: "Name", textfield: nameField)
         setUpTextField(imageNamed: "lock.png", placeholder: "Password", textfield: passwordField)
         setUpTextField(imageNamed: "email.png", placeholder: "Email", textfield: emailField)
         setUpTextField(imageNamed: "groupID.png", placeholder: "Group Identifier", textfield: groupIdField)
         
         // Embed the activity wheels into the right area in the textfields
-        setUpActivityWheel(activityWheel: usernameWheel, textfield: usernameField)
+        setUpActivityWheel(activityWheel: usernameWheel, textfield: nameField)
         setUpActivityWheel(activityWheel: passwordWheel, textfield: passwordField)
         setUpActivityWheel(activityWheel: emailWheel, textfield: emailField)
         setUpActivityWheel(activityWheel: groupIdWheel, textfield: groupIdField)
@@ -117,12 +117,14 @@ class SignupViewController: ElasticModalViewController, UITextFieldDelegate {
             passwordField.layer.borderWidth = 0
         }
         
-        if !validator.isValidUsername(username: usernameField.text!) {
-            animateTextFieldError(textfield: usernameField)
+        /*
+        if !validator.isValidUsername(username: nameField.text!) {
+            animateTextFieldError(textfield: nameField)
             valid = false
         } else {
-            usernameField.layer.borderWidth = 0
+            nameField.layer.borderWidth = 0
         }
+        */
         
         
         // Return from function if one of the text fields did not meet the correct criteria
@@ -132,13 +134,13 @@ class SignupViewController: ElasticModalViewController, UITextFieldDelegate {
         setActivityWheelsAnimating(state: true)
         
         // Attempt to create new user
-        Controller.sharedInstance.user.signup(email: emailField.text!, password: passwordField.text!, groupID: groupIdField.text!, completionHandler: { (error) -> Void in
+        Controller.sharedInstance.user.signup(name: nameField.text!, email: emailField.text!, password: passwordField.text!, groupID: groupIdField.text!, completionHandler: { (error) -> Void in
         
             if let error = error {
                 // handle error
                 let errorString = error.localizedDescription as String
                 print(errorString)
-                self.animateTextFieldError(textfield: self.usernameField)
+                self.animateTextFieldError(textfield: self.nameField)
             } else {
                 // Successful signup, time to login
                 /*Controller.sharedInstance.user.login(email: self.emailField.text!, password: self.passwordField.text!, completionHandler: { (error) -> Void in
@@ -192,7 +194,7 @@ class SignupViewController: ElasticModalViewController, UITextFieldDelegate {
     // Move UI up if we're going to start editing
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         UIView.animate(withDuration: 0.3, animations: {
-            self.usernameField.center = CGPoint(x: self.usernameField.center.x, y: self.usernameField.center.y - self.view.frame.height / 7)
+            self.nameField.center = CGPoint(x: self.nameField.center.x, y: self.nameField.center.y - self.view.frame.height / 7)
             self.passwordField.center = CGPoint(x: self.passwordField.center.x, y: self.passwordField.center.y - self.view.frame.height / 7)
             self.emailField.center = CGPoint(x: self.emailField.center.x, y: self.emailField.center.y - self.view.frame.height / 7)
             self.groupIdField.center = CGPoint(x: self.groupIdField.center.x, y: self.groupIdField.center.y - self.view.frame.height / 7)
@@ -206,7 +208,7 @@ class SignupViewController: ElasticModalViewController, UITextFieldDelegate {
     // Move UI back down after finishing editing
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         UIView.animate(withDuration: 0.3, animations: {
-            self.usernameField.center = CGPoint(x: self.usernameField.center.x, y: self.usernameField.center.y + self.view.frame.height / 7)
+            self.nameField.center = CGPoint(x: self.nameField.center.x, y: self.nameField.center.y + self.view.frame.height / 7)
             self.passwordField.center = CGPoint(x: self.passwordField.center.x, y: self.passwordField.center.y + self.view.frame.height / 7)
             self.emailField.center = CGPoint(x: self.emailField.center.x, y: self.emailField.center.y + self.view.frame.height / 7)
             self.groupIdField.center = CGPoint(x: self.groupIdField.center.x, y: self.groupIdField.center.y + self.view.frame.height / 7)
@@ -221,7 +223,7 @@ class SignupViewController: ElasticModalViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.returnKeyType == .next {
             switch textField {
-            case usernameField:
+            case nameField:
                 passwordField.becomeFirstResponder()
                 break
             case passwordField:
@@ -243,7 +245,7 @@ class SignupViewController: ElasticModalViewController, UITextFieldDelegate {
     }
     // Determine if the textfields are valid after changing and can be submitted
     func textFieldDidChange() {
-        if usernameField.text?.characters.count != 0 && passwordField.text?.characters.count != 0 && emailField.text?.characters.count != 0 && groupIdField.text?.characters.count != 0 {
+        if nameField.text?.characters.count != 0 && passwordField.text?.characters.count != 0 && emailField.text?.characters.count != 0 && groupIdField.text?.characters.count != 0 {
             signUpButton.setTitleColor(.white, for: .normal)
             signUpButton.isEnabled = true
         } else {

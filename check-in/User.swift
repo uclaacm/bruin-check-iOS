@@ -38,12 +38,14 @@ class User {
 
     /* -------------------------------------------------------- */
     
-    func signup(email: String, password: String, groupID: String, completionHandler: @escaping ( (Error?) -> Void ) ) {
+    func signup(name: String, email: String, password: String, groupID: String, completionHandler: @escaping ( (Error?) -> Void ) ) {
         let user = PFUser()
         
         user.username = email as String
         user.password = password as String
         user.email = email as String
+        
+        user["name"] = name
         
         var groups = [String]()
         groups.append(groupID)
@@ -81,7 +83,7 @@ class User {
     
     func login(email: String, password: String, completionHandler: @escaping ( (Error?) -> Void) ) {
         PFUser.logInWithUsername(inBackground: email, password: password) { (user: PFUser?, error: Error?) -> Void in
-            if error != nil {
+            if user != nil {
                 let query = PFRole.query()
                 query?.whereKey("users", equalTo: PFUser.current()!)
                 query?.findObjectsInBackground(block: { (objects, error) in
