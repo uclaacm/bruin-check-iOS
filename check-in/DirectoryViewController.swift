@@ -101,6 +101,8 @@ class DirectoryViewController: UITableViewController {
             let memberToDelete = members[indexPath.row]
             members.remove(at: indexPath.row)
             
+            sortMembers()
+            
             memberToDelete.delete(completionHandler: { (error) in
                 if let error = error {
                     //error occurred - add back into the list
