@@ -1,15 +1,38 @@
 PODS:
   - Bolts/Tasks (1.8.4)
+  - Charts (3.0.1):
+    - Charts/Core (= 3.0.1)
+  - Charts/Core (3.0.1)
   - Parse (1.14.2):
     - Bolts/Tasks (~> 1.8)
+  - Realm (2.0.4):
+    - Realm/Headers (= 2.0.4)
+  - Realm/Headers (2.0.4)
+  - RealmSwift (2.0.4):
+    - Realm (= 2.0.4)
 
 DEPENDENCIES:
+  - Charts (from `https://github.com/danielgindi/Charts.git`, branch `master`)
   - Parse
+  - RealmSwift (~> 2.0.2)
+
+EXTERNAL SOURCES:
+  Charts:
+    :branch: master
+    :git: https://github.com/danielgindi/Charts.git
+
+CHECKOUT OPTIONS:
+  Charts:
+    :commit: 3fe38177b3e351f6b2ebc177aea803996914c7f2
+    :git: https://github.com/danielgindi/Charts.git
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  Charts: e1c22ca0f52867fadf8ee16ff723dfb0b464eb91
   Parse: 4335d65f40cb3d43190d723144bbe1afb9c38230
+  Realm: 9da97f48365f8b99dd95c28d45ad8222d62e1775
+  RealmSwift: 01e8db006035f16003e6307ae8eae1adccce68db
 
-PODFILE CHECKSUM: bcf7fef25fb9b6bea927a8188f43ee1ec7f6c2e2
+PODFILE CHECKSUM: cdc31f248d25fd609f701126c7709434dd334519
 
 COCOAPODS: 1.0.1
