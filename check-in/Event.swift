@@ -11,7 +11,7 @@ import Parse
 
 class Event : Object {
     
-    init?(name: String, startDate: NSDate, endDate: NSDate, location: String) {
+    init?(name: String, startDate: Date, endDate: Date, location: String) {
         super.init(className: "Event")
         
         let controller = Controller.sharedInstance

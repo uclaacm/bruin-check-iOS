@@ -483,6 +483,7 @@
                     <tabBarItem key="tabBarItem" title="Dashboard" image="dashboard" id="Hyf-dO-OsA"/>
                     <connections>
                         <outlet property="chartView" destination="Lc1-xg-J8N" id="m6q-TF-CYL"/>
+                        <outlet property="listView" destination="6u8-IF-eAY" id="9Na-JQ-4bO"/>
                         <outlet property="navigationBar" destination="Brh-LB-YwU" id="UB2-GO-Fn0"/>
                     </connections>
                 </viewController>
