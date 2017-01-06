@@ -35,6 +35,8 @@
 		C952DCCF1D637040005D1750 /* ElasticModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C952DCCE1D637040005D1750 /* ElasticModalViewController.swift */; };
 		C952DCD11D637552005D1750 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C952DCD01D637552005D1750 /* TabBarViewController.swift */; };
 		C95401A11D5F673000F7AD65 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95401A01D5F673000F7AD65 /* SignupViewController.swift */; };
+		C968E5C61E1F0CF6002744F2 /* ScrollableGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968E5C51E1F0CF6002744F2 /* ScrollableGraphView.swift */; };
+		C968E5C81E1F12F3002744F2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968E5C71E1F12F3002744F2 /* Extensions.swift */; };
 		C9777FC51E1E039A00D8C74B /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9777FC41E1E039A00D8C74B /* DashboardViewController.swift */; };
 		C977D2FD1D5EC18B000A7AE5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C977D2FC1D5EC18B000A7AE5 /* LoginViewController.swift */; };
 		C97D4D7D1D6005CC00204571 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D4D7C1D6005CC00204571 /* EventViewController.swift */; };
@@ -76,6 +78,8 @@
 		C952DCCE1D637040005D1750 /* ElasticModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElasticModalViewController.swift; sourceTree = "<group>"; };
 		C952DCD01D637552005D1750 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		C95401A01D5F673000F7AD65 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		C968E5C51E1F0CF6002744F2 /* ScrollableGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScrollableGraphView.swift; path = ../ScrollableGraphView.swift; sourceTree = "<group>"; };
+		C968E5C71E1F12F3002744F2 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C9777FC41E1E039A00D8C74B /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		C977D2FB1D5EBE2A000A7AE5 /* check-in-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "check-in-Bridging-Header.h"; sourceTree = "<group>"; };
 		C977D2FC1D5EC18B000A7AE5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -179,6 +183,8 @@
 		C90500191D5EA5360027DBAE /* check-in */ = {
 			isa = PBXGroup;
 			children = (
+				C968E5C51E1F0CF6002744F2 /* ScrollableGraphView.swift */,
+				C968E5C71E1F12F3002744F2 /* Extensions.swift */,
 				C952DCB01D636CF1005D1750 /* ElasticTransition */,
 				C905001A1D5EA5360027DBAE /* AppDelegate.swift */,
 				C952DCD01D637552005D1750 /* TabBarViewController.swift */,
@@ -274,7 +280,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Matt Garnett";
 				TargetAttributes = {
 					C90500161D5EA5360027DBAE = {
@@ -391,6 +397,7 @@
 				C97D4D7D1D6005CC00204571 /* EventViewController.swift in Sources */,
 				C936AD451D61807800602F5A /* Member.swift in Sources */,
 				C952DCBC1D636CFC005D1750 /* Util.swift in Sources */,
+				C968E5C61E1F0CF6002744F2 /* ScrollableGraphView.swift in Sources */,
 				C926073B1E0EE9C800889888 /* Controller.swift in Sources */,
 				C952DCB71D636CFC005D1750 /* EdgePanTransition.swift in Sources */,
 				C952DCCF1D637040005D1750 /* ElasticModalViewController.swift in Sources */,
@@ -399,6 +406,7 @@
 				C952DCC61D636D0A005D1750 /* MotionAnimationPropertyState.swift in Sources */,
 				C952DCB81D636CFC005D1750 /* ElasticShapeLayer.swift in Sources */,
 				C905001D1D5EA5360027DBAE /* EventsViewController.swift in Sources */,
+				C968E5C81E1F12F3002744F2 /* Extensions.swift in Sources */,
 				C97D4D7F1D602AA000204571 /* ScannerViewController.swift in Sources */,
 				C9777FC51E1E039A00D8C74B /* DashboardViewController.swift in Sources */,
 			);

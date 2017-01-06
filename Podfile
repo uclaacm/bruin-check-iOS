@@ -8,7 +8,7 @@ target 'check-in' do
   # Pods for check-in
   #  pod 'KinveyKit'
   pod 'Parse'
-  pod "FSLineChart"
+  # pod 'ScrollableGraphView'
   # pod 'Firebase'
   # pod 'Firebase/Auth'
   # pod 'Firebase/Database'
