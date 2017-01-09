@@ -13,11 +13,10 @@ class AddEventViewController: UITableViewController, UITextFieldDelegate {
     /* -------------------------------------------------------- */
     
     let firstGroup = [ ("Title"), ("Location") ]
-    let secondGroup = [ ("Starts"), ("startPicker"), ("Ends"), ("endPicker") ]
+    let secondGroup = [ ("Starts"), ("Ends"), ("endPicker") ]
     let titleField = UITextField()
     let locationField = UITextField()
     
-    let startDatePicker = UIDatePicker()
     let endDatePicker = UIDatePicker()
     
     var startDateIndexPath = IndexPath()
@@ -25,6 +24,12 @@ class AddEventViewController: UITableViewController, UITextFieldDelegate {
 
     let TITLE_INDEX = 0
     let LOCATION_INDEX = 1
+    
+    let STARTS_INDEX = 0
+    let ENDS_INDEX = 1
+    
+    // Changes depending on which text field is tapped
+    var date_index = Integer()
     
     /* -------------------------------------------------------- */
     
@@ -68,8 +73,8 @@ class AddEventViewController: UITableViewController, UITextFieldDelegate {
         } else {
             
             if(secondGroup[indexPath.row] == "startPicker") {
-                startDatePicker.addTarget(self, action: #selector(AddEventViewController.startDatePickerValueChanged), for: .valueChanged)
-                cell.addSubview(startDatePicker)
+                endDatePicker.addTarget(self, action: #selector(AddEventViewController.startDatePickerValueChanged), for: .valueChanged)
+                cell.addSubview(endDatePicker)
             } else if secondGroup[indexPath.row] == "endPicker" {
                 endDatePicker.addTarget(self, action: #selector(AddEventViewController.endDatePickerValueChanged), for: .valueChanged)
                 cell.addSubview(endDatePicker)
@@ -88,7 +93,11 @@ class AddEventViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        if indexPath.row == 0 {
+            date_index = STARTS_INDEX
+        } else if indexPath.row == 1 {
+            date_index = ENDS_INDEX
+        }
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -100,7 +109,7 @@ class AddEventViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if (indexPath.section == 1 && indexPath.row == 1) || (indexPath.section == 1 && indexPath.row == 3) {
+        if (indexPath.section == 1 && indexPath.row == 2) {
             return 210
         }
         return 44
@@ -109,7 +118,7 @@ class AddEventViewController: UITableViewController, UITextFieldDelegate {
     // MARK: - Button Actions
     
     @IBAction func submitAddNewEvent(_ sender: AnyObject) {
-        addNewEvent(name: titleField.text!, startDate: startDatePicker.date as NSDate, endDate: endDatePicker.date as NSDate, location: locationField.text!)
+        addNewEvent(name: titleField.text!, startDate: endDatePicker.date as NSDate, endDate: endDatePicker.date as NSDate, location: locationField.text!)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -136,7 +145,7 @@ class AddEventViewController: UITableViewController, UITextFieldDelegate {
         dateFormatter.dateStyle = DateFormatter.Style.full
         dateFormatter.timeStyle = DateFormatter.Style.short
         
-        let strDate = dateFormatter.string(from: startDatePicker.date)
+        let strDate = dateFormatter.string(from: endDatePicker.date)
         tableView.cellForRow(at: startDateIndexPath)?.detailTextLabel?.text = strDate
     }
     
