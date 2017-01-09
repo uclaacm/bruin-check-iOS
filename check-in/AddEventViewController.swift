@@ -29,7 +29,7 @@ class AddEventViewController: UITableViewController, UITextFieldDelegate {
     let ENDS_INDEX = 1
     
     // Changes depending on which text field is tapped
-    var date_index = Integer()
+    var date_index: Int = -1
     
     /* -------------------------------------------------------- */
     
@@ -71,11 +71,7 @@ class AddEventViewController: UITableViewController, UITextFieldDelegate {
                 setupTextFieldInsideCell(textField: locationField, placeholder: "Location", cell: cell)
             }
         } else {
-            
-            if(secondGroup[indexPath.row] == "startPicker") {
-                endDatePicker.addTarget(self, action: #selector(AddEventViewController.startDatePickerValueChanged), for: .valueChanged)
-                cell.addSubview(endDatePicker)
-            } else if secondGroup[indexPath.row] == "endPicker" {
+            if secondGroup[indexPath.row] == "endPicker" {
                 endDatePicker.addTarget(self, action: #selector(AddEventViewController.endDatePickerValueChanged), for: .valueChanged)
                 cell.addSubview(endDatePicker)
             } else if secondGroup[indexPath.row] == "Starts" {
@@ -137,17 +133,6 @@ class AddEventViewController: UITableViewController, UITextFieldDelegate {
         cell.addSubview(textField)
     }
     
-    // Update the label text when picker value changes
-    func startDatePickerValueChanged() {
-        
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateStyle = DateFormatter.Style.full
-        dateFormatter.timeStyle = DateFormatter.Style.short
-        
-        let strDate = dateFormatter.string(from: endDatePicker.date)
-        tableView.cellForRow(at: startDateIndexPath)?.detailTextLabel?.text = strDate
-    }
     
     // Update the label text when picker value changes
     func endDatePickerValueChanged() {
