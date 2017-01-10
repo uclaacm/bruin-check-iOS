@@ -38,6 +38,17 @@ class DashboardViewController : UIViewController, UITableViewDataSource, UITable
         // Make tableview background white
         listView.backgroundColor = .white
         
+        self.view.backgroundColor = UIColor(red:0.23, green:0.48, blue:0.84, alpha:1.0)
+        navigationBar.barTintColor = UIColor(red:0.23, green:0.48, blue:0.84, alpha:1.0)
+        navigationBar.tintColor = .white
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        
+        let navBorder: UIView = UIView(frame: CGRect(x: 0, y: navigationBar.frame.size.height - 1, width: navigationBar.frame.size.width, height: 2))
+        // Set the color you want here
+        navBorder.backgroundColor = UIColor(red:0.23, green:0.48, blue:0.84, alpha:1)
+        navBorder.isOpaque = true
+        navigationBar.addSubview(navBorder)
+        
         // Setup activity wheel
         listView.refreshControl = self.refresh
         refresh.tintColor = .black
@@ -65,14 +76,13 @@ class DashboardViewController : UIViewController, UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         // Name the sections best or worst depeding on whether it is section 0 or 1
-        if let type = type {
-            if section == 0 {
-                return "Best " + (type == "events" ? "Events" : "Members")
-            } else if section == 1 {
-                return "Worst " + (type == "events" ? "Events" : "Members")
-            }
+        if section == 0 {
+            return "Best " + "events"//(type == "events" ? "Events" : "Members")
+        } else if section == 1 {
+            return "Worst " + "events"//(type == "events" ? "Events" : "Members")
         }
         
+
         // ...
         return ""
     }
@@ -179,34 +189,51 @@ class DashboardViewController : UIViewController, UITableViewDataSource, UITable
         
         
         var oldest = Date.init()
+        var max = 0
         
         for event in events {
-            if event.startDate < oldest && event.startDate > Date.init() {
-            oldest = event.startDate
+            if event.startDate < oldest && event.startDate < Date.init() {
+                oldest = event.startDate
+            }
+            
+            if max < event.attendee_count {
+                max = event.attendee_count
+            }
         }
         
-        self.view.backgroundColor = UIColor(red:0.23, green:0.48, blue:0.84, alpha:1.0)
-        navigationBar.barTintColor = UIColor(red:0.23, green:0.48, blue:0.84, alpha:1.0)
-        navigationBar.tintColor = .white
-        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        var current = oldest
+        var labels: [String] = []
+        var data: [Double] = []
+        var labelDates: [Date] = []
         
-        let navBorder: UIView = UIView(frame: CGRect(x: 0, y: navigationBar.frame.size.height - 1, width: navigationBar.frame.size.width, height: 2))
-        // Set the color you want here
-        navBorder.backgroundColor = UIColor(red:0.23, green:0.48, blue:0.84, alpha:1)
-        navBorder.isOpaque = true
-        navigationBar.addSubview(navBorder)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd"
         
-        /*
-        let navBorder2: UIView = UIView(frame: CGRect(x: 0, y: navigationBar.frame.size.height - 1, width: navigationBar.frame.size.width, height: 0.4))
-        // Set the color you want here
-        navBorder2.backgroundColor = UIColor.white
-        navBorder2.isOpaque = true
-        navigationBar.addSubview(navBorder2) */
-
-        let data: [Double] = [4, 8, 15, 16, 23, 42]
-        let labels = ["one", "two", "three", "four", "five", "six"]
+        while(current < Date.init()) {
+            labels.append(dateFormatter.string(from: current))
+            labelDates.append(current)
+            data.append(0)
+            current.addTimeInterval(604800) // add one week
+        }
         
+        labels.append(dateFormatter.string(from: current))
+        labelDates.append(current)
+        data.append(0)
+        
+        //labelDates.append(Date.init())
+        
+        for event in events {
+            for index in 0...(labelDates.count - 1) {
+                if event.startDate > labelDates[index] && ( (index == labelDates.count - 1) ? (event.startDate < Date.init()) : (event.startDate < labelDates[index + 1]) ){
+                    data[index] += Double(event.attendee_count)                }
+            }
+        }
+    
+        
+        // Set up graph view
         let graphView = chartView!
+        
+        graphView.rangeMax = Double(max)
         
         graphView.showsHorizontalScrollIndicator = false
         graphView.direction = .rightToLeft
@@ -234,9 +261,6 @@ class DashboardViewController : UIViewController, UITableViewDataSource, UITable
         graphView.referenceLinePosition = ScrollableGraphViewReferenceLinePosition.both
         
         graphView.numberOfIntermediateReferenceLines = 1
-        
-        graphView.rangeMax = 50
-        
         
         graphView.set(data: data, withLabels: labels)
         //chartView.addSubview(graphView)

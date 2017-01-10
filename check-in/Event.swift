@@ -52,13 +52,13 @@ class Event : Object {
         set(n) { parse_object["name"] = n }
     }
     
-    var startDate: NSDate {
-        get { return parse_object["startDate"] as! NSDate }
+    var startDate: Date {
+        get { return parse_object["startDate"] as! Date }
         set(s) { parse_object["startDate"] = s }
     }
     
-    var endDate: NSDate {
-        get { return parse_object["endDate"] as! NSDate }
+    var endDate: Date {
+        get { return parse_object["endDate"] as! Date }
         set(e) { parse_object["endDate"] = e }
     }
     

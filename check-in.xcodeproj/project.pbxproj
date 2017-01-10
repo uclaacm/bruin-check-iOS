@@ -37,6 +37,7 @@
 		C95401A11D5F673000F7AD65 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95401A01D5F673000F7AD65 /* SignupViewController.swift */; };
 		C968E5C61E1F0CF6002744F2 /* ScrollableGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968E5C51E1F0CF6002744F2 /* ScrollableGraphView.swift */; };
 		C968E5C81E1F12F3002744F2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968E5C71E1F12F3002744F2 /* Extensions.swift */; };
+		C968E5CA1E2018E3002744F2 /* DashboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968E5C91E2018E3002744F2 /* DashboardCell.swift */; };
 		C9777FC51E1E039A00D8C74B /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9777FC41E1E039A00D8C74B /* DashboardViewController.swift */; };
 		C977D2FD1D5EC18B000A7AE5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C977D2FC1D5EC18B000A7AE5 /* LoginViewController.swift */; };
 		C97D4D7D1D6005CC00204571 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D4D7C1D6005CC00204571 /* EventViewController.swift */; };
@@ -80,6 +81,7 @@
 		C95401A01D5F673000F7AD65 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		C968E5C51E1F0CF6002744F2 /* ScrollableGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScrollableGraphView.swift; path = ../ScrollableGraphView.swift; sourceTree = "<group>"; };
 		C968E5C71E1F12F3002744F2 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		C968E5C91E2018E3002744F2 /* DashboardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardCell.swift; sourceTree = "<group>"; };
 		C9777FC41E1E039A00D8C74B /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		C977D2FB1D5EBE2A000A7AE5 /* check-in-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "check-in-Bridging-Header.h"; sourceTree = "<group>"; };
 		C977D2FC1D5EC18B000A7AE5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				C9777FC41E1E039A00D8C74B /* DashboardViewController.swift */,
+				C968E5C91E2018E3002744F2 /* DashboardCell.swift */,
 			);
 			name = Dashboard;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C968E5CA1E2018E3002744F2 /* DashboardCell.swift in Sources */,
 				C95401A11D5F673000F7AD65 /* SignupViewController.swift in Sources */,
 				C936AD441D61807800602F5A /* Event.swift in Sources */,
 				C952DCB91D636CFC005D1750 /* ElasticTransition.swift in Sources */,
