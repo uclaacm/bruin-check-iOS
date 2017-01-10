@@ -13,11 +13,11 @@ class AddEventViewController: UITableViewController, UITextFieldDelegate {
     /* -------------------------------------------------------- */
     
     let firstGroup = [ ("Title"), ("Location") ]
-    let secondGroup = [ ("Starts"), ("Ends"), ("endPicker") ]
+    let secondGroup = [ ("Starts"), ("Ends"), ("Picker") ]
     let titleField = UITextField()
     let locationField = UITextField()
     
-    let endDatePicker = UIDatePicker()
+    let datePicker = UIDatePicker()
     
     var startDateIndexPath = IndexPath()
     var endDateIndexPath = IndexPath()
@@ -71,9 +71,9 @@ class AddEventViewController: UITableViewController, UITextFieldDelegate {
                 setupTextFieldInsideCell(textField: locationField, placeholder: "Location", cell: cell)
             }
         } else {
-            if secondGroup[indexPath.row] == "endPicker" {
-                endDatePicker.addTarget(self, action: #selector(AddEventViewController.endDatePickerValueChanged), for: .valueChanged)
-                cell.addSubview(endDatePicker)
+            if secondGroup[indexPath.row] == "Picker" {
+                datePicker.addTarget(self, action: #selector(AddEventViewController.datePickerValueChanged), for: .valueChanged)
+                cell.addSubview(datePicker)
             } else if secondGroup[indexPath.row] == "Starts" {
                 cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
                 startDateIndexPath = indexPath
@@ -114,7 +114,7 @@ class AddEventViewController: UITableViewController, UITextFieldDelegate {
     // MARK: - Button Actions
     
     @IBAction func submitAddNewEvent(_ sender: AnyObject) {
-        addNewEvent(name: titleField.text!, startDate: endDatePicker.date as NSDate, endDate: endDatePicker.date as NSDate, location: locationField.text!)
+        addNewEvent(name: titleField.text!, startDate: datePicker.date as NSDate, endDate: datePicker.date as NSDate, location: locationField.text!)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -135,14 +135,19 @@ class AddEventViewController: UITableViewController, UITextFieldDelegate {
     
     
     // Update the label text when picker value changes
-    func endDatePickerValueChanged() {
+    func datePickerValueChanged() {
         let dateFormatter = DateFormatter()
         
         dateFormatter.dateStyle = DateFormatter.Style.full
         dateFormatter.timeStyle = DateFormatter.Style.short
         
-        let strDate = dateFormatter.string(from: endDatePicker.date)
-        tableView.cellForRow(at: endDateIndexPath)?.detailTextLabel?.text = strDate
+        if(date_index == STARTS_INDEX) {
+            let strDate = dateFormatter.string(from: datePicker.date)
+            tableView.cellForRow(at: startDateIndexPath)?.detailTextLabel?.text = strDate
+        } else if(date_index == ENDS_INDEX) {
+            let strDate = dateFormatter.string(from: datePicker.date)
+            tableView.cellForRow(at: endDateIndexPath)?.detailTextLabel?.text = strDate
+        }
     }
     
     // Save the event
