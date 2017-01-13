@@ -220,12 +220,13 @@ class DashboardViewController : UIViewController, UITableViewDataSource, UITable
         labelDates.append(current)
         data.append(0)
         
-        //labelDates.append(Date.init())
+
         
         for event in events {
             for index in 0...(labelDates.count - 1) {
-                if event.startDate > labelDates[index] && ( (index == labelDates.count - 1) ? (event.startDate < Date.init()) : (event.startDate < labelDates[index + 1]) ){
-                    data[index] += Double(event.attendee_count)                }
+                if event.startDate >= labelDates[index] && ( (index == labelDates.count - 1) ? (event.startDate < Date.init()) : (event.startDate < labelDates[index + 1]) ){
+                    data[index] += Double(event.attendee_count)
+                }
             }
         }
     

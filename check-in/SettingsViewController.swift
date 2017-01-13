@@ -10,6 +10,8 @@ import UIKit
 
 class SettingsViewController: UITableViewController, UITextFieldDelegate {
 
+    let controller = Controller.sharedInstance
+    
     // Declare text fields that will be embedded into cells
     var nameField = UITextField()
     var emailField = UITextField()
@@ -95,7 +97,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate {
         case 1:
             return 2
         case 2:
-            return 3
+            return controller.user.groups!.count + 1
         case 3:
             return 1
         default:
@@ -110,10 +112,23 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate {
         case 1:
             return "Change password"
         case 2:
-            return "To be determined"
+            return "Manage Groups"
         default:
             return ""
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        print("delete item")
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+
+        if indexPath.section == 2 {
+            return true
+        }
+        
+        return false
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -180,6 +195,16 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate {
             wheel.frame = frame
             wheel.activityIndicatorViewStyle = .gray
             cell.addSubview(wheel)
+            
+        } else if indexPath.section == 2 {
+            
+            if indexPath.row == controller.user.groups?.count {
+                cell.textLabel?.text = "Add new group"
+            } else {
+                cell.textLabel?.text = controller.user.groups?[indexPath.row]
+            }
+            
+            
             
         } else if indexPath.section == 3 {
             
